@@ -22,33 +22,20 @@ import com.yhdc.jspblog.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/user/")
+@RequestMapping("/auth/")
 @RequiredArgsConstructor
 public class UserApiController {
 
 	private final UserService userService;
-
+	
 	// Join
-	@PostMapping("/join")
-	public ResponseEntity<Integer> joinForm(@RequestBody User newUser) {
+	@PostMapping("/joinProc")
+	public ResponseEntity<Integer> joinUser(@RequestBody User newUser) {
 
-		userService.registerUser(newUser);
+		int result = userService.joinUser(newUser);
 
-		return new ResponseEntity<Integer>(1, HttpStatus.OK);
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
-
-	// Form Login
-//		@PostMapping("/login")
-//		public ResponseEntity<Integer> login(@RequestBody User user, HttpSession session) {
-	//
-//			User principal = userService.loginUser(user);
-//			
-//			if(principal != null) {
-//				session.setAttribute("principla", principal);
-//			}
-	//
-//			return new ResponseEntity<Integer>(1, HttpStatus.OK);
-//		}
 
 	// Search and List User
 	@GetMapping("/list")
@@ -86,4 +73,16 @@ public class UserApiController {
 
 		return new ResponseEntity<String>(result, HttpStatus.OK);
 	}
+	
+	// Form Login
+//	@PostMapping("/login")
+//	public ResponseEntity<Integer> login(@RequestBody User user, HttpSession session) {
+//
+//		User principal = userService.loginUser(user);
+//		if(principal != null) {
+//			session.setAttribute("principal", principal);
+//		}
+//		
+//		return new ResponseEntity<Integer>(result, HttpStatus.OK);
+//	}
 }

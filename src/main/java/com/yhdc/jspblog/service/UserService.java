@@ -21,15 +21,6 @@ public class UserService {
 
 	private final UserRepository userRepository;
 
-	// Form Login
-//	@Transactional(readOnly = true)
-//	public User loginUser(User user) {
-//
-//		User principal = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
-//
-//		return principal;
-//	}
-
 	// Search and List User
 	public Page<User> userSearchList(String username, String email,
 			@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
@@ -45,20 +36,22 @@ public class UserService {
 		User user = userRepository.findById(id).orElseThrow(() -> {
 			return new IllegalArgumentException("THE USER DOES NOT EXIST.");
 		});
-
 		return user;
 	}
 
 	// Join User
 	@Transactional
-	public User registerUser(User newUser) {
-
-		newUser.setRole(RoleType.USER);
-		newUser.setEnable(EnableType.ENABLE);
-
-		User user = userRepository.save(newUser);
-
-		return user;
+	public Integer joinUser(User newUser) {
+		try {
+			newUser.setRole(RoleType.USER);
+			newUser.setEnable(EnableType.ENABLE);
+			userRepository.save(newUser);
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("UserService: register()" + e.getMessage());
+		}
+		return -1;
 	}
 
 	// Update User
@@ -84,4 +77,13 @@ public class UserService {
 
 		return "DELETED";
 	}
+	
+	// Form Login
+//	@Transactional(readOnly = true)
+//	public User loginUser(User user) {
+//
+//		User principal = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
+//
+//		return principal;
+//	}
 }
