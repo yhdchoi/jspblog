@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -74,15 +75,4 @@ public class UserApiController {
 		return new ResponseEntity<String>(result, HttpStatus.OK);
 	}
 	
-	// Form Login
-//	@PostMapping("/login")
-//	public ResponseEntity<Integer> login(@RequestBody User user, HttpSession session) {
-//
-//		User principal = userService.loginUser(user);
-//		if(principal != null) {
-//			session.setAttribute("principal", principal);
-//		}
-//		
-//		return new ResponseEntity<Integer>(result, HttpStatus.OK);
-//	}
 }

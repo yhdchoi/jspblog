@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,8 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 
 	private final UserRepository userRepository;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
 	// Search and List User
 	public Page<User> userSearchList(String username, String email,
@@ -42,7 +45,8 @@ public class UserService {
 	// Join User
 	@Transactional
 	public Integer joinUser(User newUser) {
-		try {
+		try {			
+			newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
 			newUser.setRole(RoleType.USER);
 			newUser.setEnable(EnableType.ENABLE);
 			userRepository.save(newUser);
@@ -78,12 +82,4 @@ public class UserService {
 		return "DELETED";
 	}
 	
-	// Form Login
-//	@Transactional(readOnly = true)
-//	public User loginUser(User user) {
-//
-//		User principal = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
-//
-//		return principal;
-//	}
 }

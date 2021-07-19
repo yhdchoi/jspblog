@@ -7,11 +7,11 @@
   <!-- class="was-validated" -->
   <h3>Login</h3>
   <br />
-  <form>
+  <form action="/auth/loginProc" method="POST">
     <div class="form-group w-50 m-auto">
-      <label for="email">Email</label>
-      <input type="email" class="form-control mt-3 mb-3" id="email" placeholder="Enter email"
-        name="email" required>
+      <label for="username">Username</label>
+      <input type="text" class="form-control mt-3 mb-3" id="username" placeholder="Enter username"
+        name="username" required>
       <!-- <div class="valid-feedback">Valid.</div>
       <div class="invalid-feedback">Please fill out this field.</div> -->
     </div>
@@ -24,19 +24,18 @@
       <div class="invalid-feedback">Please fill out this field.</div> -->
     </div>
 
-    <div class="form-group form-check mt-5 ">
+<!--     <div class="form-group form-check mt-5 ">
       <label class="form-check-label">
         <input class="form-check-input" type="checkbox" name="remember" id="remember">
         Remember me.
       </label>
+    </div> -->
+
+    <div class="mt-5">
+      <button class="btn btn-outline-primary" id="btn-login">Submit</button>
     </div>
   </form>
-  <br>
-  
-  <div class="mt-5">
-    <button class="btn btn-outline-primary" id="btn-login">Submit</button>
-  </div>
+
 </div>
 
-<script src="/js/user.js"></script>
 <%@include file="../layout/footer.jsp"%>
