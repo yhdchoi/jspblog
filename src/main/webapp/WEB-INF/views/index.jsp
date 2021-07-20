@@ -3,12 +3,14 @@
 <%@include file="layout/header.jsp"%>
 <div class="container mt-4 mb-5 min-vh-100">
 
-  <form class="d-flex me-4 mb-4">
-    <input class="form-control" type="search" id="search" placeholder="Search" aria-label="Search">
+<!-- Search -->
+  <form action="/" method="GET" class="d-flex me-4 mb-4">
+    <input class="form-control me-2" type="search" id="search" name="search" placeholder="Search from Title and(or) Content" aria-label="Search">
     <button class="btn btn-outline-success" type="submit" id="btn-search">Search</button>
   </form>
   <br />
 
+<!-- List -->
   <c:forEach var="board" items="${boards.content}">
     <div class="card mb-4">
       <div class="card-body">
@@ -26,10 +28,10 @@
       <c:when test="${boards.first}"></c:when>
       <c:otherwise>
         <li class="page-item">
-          <a class="page-link" href="?page=0">First</a>
+          <a class="page-link" href="?search=${param.search}&page=0">First</a>
         </li>
         <li class="page-item">
-          <a class="page-link" href="?page=${boards.number-1}">&larr;</a>
+          <a class="page-link" href="?search=${param.search}&page=${boards.number-1}">&larr;</a>
         </li>
       </c:otherwise>
     </c:choose>
@@ -39,12 +41,12 @@
       <c:choose>
         <c:when test="${boards.pageable.pageNumber+1 == i}">
           <li class="page-item disabled">
-            <a class="page-link" href="?page=${i-1}">${i}</a>
+            <a class="page-link" href="?search=${param.search}&page=${i-1}">${i}</a>
           </li>
         </c:when>
         <c:otherwise>
           <li class="page-item">
-            <a class="page-link" href="?page=${i-1}">${i}</a>
+            <a class="page-link" href="?search=${param.search}&page=${i-1}">${i}</a>
           </li>
         </c:otherwise>
       </c:choose>
@@ -55,12 +57,11 @@
       <c:when test="${boards.last}"></c:when>
       <c:otherwise>
         <li class="page-item ">
-          <a class="page-link"
-            href="?page=${boards.number+1}">&rarr;</a>
+          <a class="page-link" href="?search=${param.search}&page=${boards.number+1}">&rarr;</a>
         </li>
         <li class="page-item ">
           <a class="page-link"
-            href="?page=${boards.totalPages-1}">Last</a>
+            href="?search=${param.search}&page=${boards.totalPages-1}">Last</a>
         </li>
       </c:otherwise>
     </c:choose>
