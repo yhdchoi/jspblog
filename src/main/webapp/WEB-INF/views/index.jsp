@@ -16,7 +16,7 @@
       <div class="card-body">
         <h4 class="card-title">${board.title}</h4>
         <p class="card-text">${board.user.username}</p>
-        <a href="#" class="btn btn-outline-info">Read</a>
+        <a href="/board/${board.id}" class="btn btn-outline-info">Read</a>
       </div>
     </div>
   </c:forEach>

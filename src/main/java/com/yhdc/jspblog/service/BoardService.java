@@ -20,12 +20,14 @@ public class BoardService {
 	private final BoardRepository boardRepository;
 
 	// List
+	@Transactional(readOnly = true)
 	public Page<Board> list(Pageable pageable) {
 
 		return boardRepository.findAll(pageable);
 	}
 
 	// Search List
+	@Transactional(readOnly = true)
 	public Page<Board> boardSearchList(String title, String content, Pageable pageable) {
 		Page<Board> boards = boardRepository.findByTitleContainingOrContentContaining(title, content, pageable);
 
@@ -33,6 +35,7 @@ public class BoardService {
 	}
 
 	// Read
+	@Transactional(readOnly = true)
 	public Board read(Long id) {
 		Board board = boardRepository.findById(id).orElseThrow(() -> {
 			return new IllegalArgumentException("THE BOARD DOES NOT EXIST.");
@@ -58,24 +61,25 @@ public class BoardService {
 
 	// Update Board
 	@Transactional
-	public Board updateBoard(Long id, Board newBoard) {
+	public Integer updateBoard(Long id, Board updateBoard) {
 		Board board = boardRepository.findById(id).orElseThrow(() -> {
 			return new IllegalArgumentException("THE BOARD DOES NOT EXIST.");
 		});
 
-		board.setTitle(newBoard.getTitle());
-		board.setContent(newBoard.getContent());
+		board.setTitle(updateBoard.getTitle());
+		board.setContent(updateBoard.getContent());
 
-		return board;
+		return 1;
 	}
 
 	// Delete Board
-	public String deleteBoard(Long id) {
+	@Transactional
+	public Integer deleteBoard(Long id) {
 		try {
 			boardRepository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
-			return "THE BOARD DOES NOT EXIST.";
+			return -1;
 		}
-		return "DELETED";
+		return 1;
 	}
 }

@@ -59,18 +59,18 @@ public class BoardApiController {
 
 	// Update Board
 	@PutMapping("/update/{id}")
-	public ResponseEntity<Board> updateBoard(@PathVariable Long id, @Valid @RequestBody Board newBoard) {
-		Board board = boardService.updateBoard(id, newBoard);
+	public ResponseEntity<Integer> updateBoard(@PathVariable Long id, @Valid @RequestBody Board newBoard) {
+		int result = boardService.updateBoard(id, newBoard);
 
-		return new ResponseEntity<Board>(board, HttpStatus.OK);
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 
 	// Delete Board
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteBoard(@PathVariable Long id) {
+	public ResponseEntity<Integer> deleteBoard(@PathVariable Long id) {
 
-		boardService.deleteBoard(id);
+		int result = boardService.deleteBoard(id);
 
-		return new ResponseEntity<String>("DELETED", HttpStatus.OK);
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 }

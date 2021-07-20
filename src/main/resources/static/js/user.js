@@ -26,7 +26,7 @@ let index={
 		}).done(function(){
 			alert("Join successful! Please Login again.");
 			location.href = "/";
-		}).fail(function(){
+		}).fail(function(error){
 			alert(JSON.stringify(error));			
 		});
 	}
