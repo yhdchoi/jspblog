@@ -1,9 +1,46 @@
 package com.yhdc.jspblog.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.yhdc.jspblog.model.Board;
+import com.yhdc.jspblog.service.BoardService;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 public class BoardController {
 
+	private final BoardService boardService;
+
+	@GetMapping({ "", "/" })
+	public String index(Model model,
+			@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+
+		Page<Board> boards = boardService.list(pageable);
+
+		int pageNumber = boards.getPageable().getPageNumber();
+		int totalPages = boards.getTotalPages();
+		int pageBlock = 5;
+		int startBlockPage = ((pageNumber) / pageBlock) * pageBlock + 1;
+		int endBlockPage = startBlockPage + pageBlock - 1;
+		endBlockPage = totalPages < endBlockPage ? totalPages : endBlockPage;
+
+		model.addAttribute("startBlockPage", startBlockPage);
+		model.addAttribute("endBlockPage", endBlockPage);
+		model.addAttribute("boards", boards);
+		return "index";
+	}
+
+	@GetMapping("/board/registerBoard")
+	public String registerBoard() {
+		return "board/registerBoard";
+	}
 
 }

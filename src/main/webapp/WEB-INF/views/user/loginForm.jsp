@@ -2,7 +2,7 @@
 
 <%@include file="../layout/header.jsp"%>
 
-<div class="container text-center mt-5 mb-5">
+<div class="container text-center min-vh-100 mt-5 mb-5">
 
   <!-- class="was-validated" -->
   <h3>Login</h3>

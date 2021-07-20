@@ -15,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -43,7 +42,6 @@ public class Board {
 	@Column(columnDefinition = "text")
 	private String content;
 	
-	@ColumnDefault("0")
 	private int count;
 
 	@Enumerated(EnumType.STRING)

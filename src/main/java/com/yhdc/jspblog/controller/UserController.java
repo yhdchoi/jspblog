@@ -15,5 +15,10 @@ public class UserController {
 	public String login() {
 		return "user/loginForm";
 	}
-	
+
+	@GetMapping("/logout")
+	public String logout() {
+		return "/";
+	}
+
 }

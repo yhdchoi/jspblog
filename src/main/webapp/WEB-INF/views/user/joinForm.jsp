@@ -2,7 +2,7 @@
 
 <%@include file="../layout/header.jsp"%>
 
-<div class="container h-auto text-center mt-5 mb-5">
+<div class="container min-vh-100 text-center mt-5 mb-5">
 
   <!-- class="was-validated" -->
   <h3>Join</h3>
