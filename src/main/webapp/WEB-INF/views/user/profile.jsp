@@ -18,10 +18,11 @@
 
   <div class="form-group">
     <label for="email">Email: </label>
-    <input type="email" class="form-control" id="email" value="${principal.user.email}">
+    <input type="email" class="form-control" id="email" value="${principal.user.email}" readonly="readonly">
   </div>
   <br />
 
+<c:if test="${empty principal.user.oauth}">
   <div class="form-group">
     <label for="password">Password: </label>
     <input type="password" class="form-control" id="password">
@@ -33,6 +34,7 @@
     <input type="password" class="form-control" id="confirmpassword">
   </div>
   <br />
+</c:if>
 
   <div class="form-group">
     <label for="regDate">Created on: </label>

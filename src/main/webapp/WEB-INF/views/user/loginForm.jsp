@@ -22,21 +22,22 @@
       <div class="invalid-feedback">Please fill out this field.</div> -->
     </div>
 
-<!--     <div class="form-group form-check mt-5 ">
+    <!--     <div class="form-group form-check mt-5 ">
       <label class="form-check-label">
         <input class="form-check-input" type="checkbox" name="remember" id="remember">
         Remember me.
       </label>
     </div> -->
 
-    <div class="mt-5">
-      <button class="btn btn-outline-primary" id="btn-login">Submit</button>
+    <div class="mt-5 mb-4">
+      <button class="btn btn-outline-primary btn-sm" id="btn-login">Submit</button>
     </div>
-    
-    <a href="#"><img src="/image/kakao_login_medium.png"></a>
-   
-  </form>
+    <a
+      href="https://kauth.kakao.com/oauth/authorize?client_id=abcd6e06f02103cdd01e8fad0833bfe0&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code">
+      <img height="38" src="/image/kakao_login_large_narrow.png" />
+    </a>
 
+  </form>
 </div>
 
 <%@include file="../layout/footer.jsp"%>

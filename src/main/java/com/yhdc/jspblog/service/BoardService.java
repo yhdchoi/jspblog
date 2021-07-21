@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yhdc.jspblog.model.Board;
-import com.yhdc.jspblog.model.PrivacyType;
 import com.yhdc.jspblog.model.User;
+import com.yhdc.jspblog.model.enums.PrivacyType;
 import com.yhdc.jspblog.repository.BoardRepository;
 
 import lombok.RequiredArgsConstructor;

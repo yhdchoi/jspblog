@@ -9,9 +9,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yhdc.jspblog.model.EnableType;
-import com.yhdc.jspblog.model.RoleType;
 import com.yhdc.jspblog.model.User;
+import com.yhdc.jspblog.model.enums.EnableType;
+import com.yhdc.jspblog.model.enums.RoleType;
 import com.yhdc.jspblog.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +23,33 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+	// Join User
+	@Transactional
+	public Integer joinUser(User newUser) {
+		try {
+			newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
+			newUser.setRole(RoleType.USER);
+			newUser.setEnable(EnableType.ENABLE);
+			userRepository.save(newUser);
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("UserService: register()" + e.getMessage());
+		}
+		return -1;
+	}
+
+	// Kakao Login
+
+	// Find user
+	@Transactional(readOnly = true)
+	public User findUserByEmail(String email) {
+		User user = userRepository.findByEmail(email).orElseGet(() -> {
+			return new User();
+		});
+
+		return user;
+	}
 
 	// Search and List User
 	@Transactional(readOnly = true)
@@ -43,22 +70,8 @@ public class UserService {
 		});
 		return user;
 	}
-
-	// Join User
-	@Transactional
-	public Integer joinUser(User newUser) {
-		try {			
-			newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
-			newUser.setRole(RoleType.USER);
-			newUser.setEnable(EnableType.ENABLE);
-			userRepository.save(newUser);
-			return 1;
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("UserService: register()" + e.getMessage());
-		}
-		return -1;
-	}
+	
+	//TODO Password Recover
 
 	// Update User
 	@Transactional
@@ -66,9 +79,14 @@ public class UserService {
 		User persistance = userRepository.findById(id).orElseThrow(() -> {
 			return new IllegalArgumentException("THE USER DOES NOT EXIST.");
 		});
-
-		persistance.setEmail(updateUser.getEmail());
-		persistance.setPassword(bCryptPasswordEncoder.encode(updateUser.getPassword()));
+		
+		// Validation check
+		if (persistance.getOauth() == null) {
+			persistance.setEmail(updateUser.getEmail());
+			persistance.setPassword(bCryptPasswordEncoder.encode(updateUser.getPassword()));			
+		} else {
+			return -1;
+		}
 
 		return 1;
 	}
@@ -84,5 +102,5 @@ public class UserService {
 
 		return "DELETED";
 	}
-	
+
 }

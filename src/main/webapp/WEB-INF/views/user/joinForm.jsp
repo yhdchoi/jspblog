@@ -32,11 +32,9 @@
 
   <br>
 
-  <div class="mt-5">
-    <button class="btn btn-outline-success" id="btn-join">Submit</button>
+  <div class="mt-5 mb-4">
+    <button class="btn btn-outline-success btn-sm" id="btn-join">Submit</button>
   </div>
-      <a href="#"><img height="38" src="/images/kakao_login.png" /></a>
-  
 
 </div>
 

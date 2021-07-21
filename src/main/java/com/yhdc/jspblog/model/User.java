@@ -13,6 +13,10 @@ import javax.persistence.Id;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.yhdc.jspblog.model.enums.EnableType;
+import com.yhdc.jspblog.model.enums.OauthType;
+import com.yhdc.jspblog.model.enums.RoleType;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,7 +36,7 @@ public class User {
 	@Column(updatable = false)
 	private Long id;
 
-	@Column(length = 20, unique = true)
+	@Column(length = 100, unique = true)
 	private String username;
 
 	@Column(length = 20, unique = true)
@@ -40,6 +44,10 @@ public class User {
 
 	@Column(length = 100)
 	private String password;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = true)
+	private OauthType oauth;
 
 	@Enumerated(EnumType.STRING)
 	private RoleType role;

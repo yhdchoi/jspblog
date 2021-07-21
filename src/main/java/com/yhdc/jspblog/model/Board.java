@@ -18,6 +18,8 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.yhdc.jspblog.model.enums.PrivacyType;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

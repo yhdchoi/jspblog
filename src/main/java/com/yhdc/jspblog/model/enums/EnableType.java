@@ -1,4 +1,4 @@
-package com.yhdc.jspblog.model;
+package com.yhdc.jspblog.model.enums;
 
 public enum EnableType {
 	ENABLE, DISABLE

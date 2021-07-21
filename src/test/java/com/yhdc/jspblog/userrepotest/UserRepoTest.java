@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.yhdc.jspblog.model.EnableType;
-import com.yhdc.jspblog.model.RoleType;
 import com.yhdc.jspblog.model.User;
+import com.yhdc.jspblog.model.enums.EnableType;
+import com.yhdc.jspblog.model.enums.RoleType;
 import com.yhdc.jspblog.repository.UserRepository;
 
 @SpringBootTest
