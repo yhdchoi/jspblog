@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,14 +21,13 @@ import com.yhdc.jspblog.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/auth/")
 @RequiredArgsConstructor
 public class UserApiController {
 
 	private final UserService userService;
 
 	// Join
-	@PostMapping("/joinProc")
+	@PostMapping("/auth/joinProc")
 	public ResponseEntity<Integer> joinUser(@RequestBody User newUser) {
 
 		int result = userService.joinUser(newUser);
@@ -38,7 +36,7 @@ public class UserApiController {
 	}
 
 	// Search and List User
-	@GetMapping("/list")
+	@GetMapping("/user/list")
 	public ResponseEntity<Page<User>> userSearchList(@RequestParam String username, @RequestParam String email,
 			@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
@@ -48,7 +46,7 @@ public class UserApiController {
 	}
 
 	// Detail
-	@GetMapping("/detail/{id}")
+	@GetMapping("/user/detail/{id}")
 	public ResponseEntity<User> detail(@PathVariable Long id) {
 
 		User user = userService.detail(id);
@@ -57,16 +55,24 @@ public class UserApiController {
 	}
 
 	// Update User
-	@PutMapping("/update/{id}")
-	public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updateUser) {
+	@PutMapping("/user/update/{id}")
+	public ResponseEntity<Integer> updateUser(@PathVariable Long id, @RequestBody User updateUser) {
 
-		User user = userService.updateUser(id, updateUser);
+		userService.updateUser(id, updateUser);
 
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+//		Authentication authentication = new UsernamePasswordAuthenticationToken(principal, null);
+//
+//		SecurityContext securityContext = SecurityContextHolder.getContext();
+//		
+//		securityContext.setAuthentication(authentication);
+//
+//		session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
+
+		return new ResponseEntity<Integer>(1, HttpStatus.OK);
 	}
 
 	// Delete User
-	@DeleteMapping("/remove/{id}")
+	@DeleteMapping("/user/remove/{id}")
 	public ResponseEntity<String> deleteUser(@PathVariable Long id) {
 
 		String result = userService.deleteUser(id);

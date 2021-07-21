@@ -41,7 +41,7 @@ let index = {
 
 		$.ajax({
 			type: "DELETE",
-			url: "/api/board/delete" + id,
+			url: "/api/board/delete/" + id,
 			dataType: 'json'
 
 		}).done(function(resp) {
@@ -55,21 +55,21 @@ let index = {
 
 	updateById: function() {
 
-		let id = $("#id").text();
+		let id = $("#id").val();
 
 		let data = {
 			title: $("#title").val(),
-			content: $("#content").val()
+			content: $("#content").val()			
 		};
 
 		$.ajax({
 			type: "PUT",
-			url: "/api/board/update" + id,
+			url: "/api/board/update/" + id,
 			data: JSON.stringify(data),
 			contentType: 'application/json; charset=utf-8',
 			dataType: 'json'
 
-		}).done(function() {
+		}).done(function(resp) {
 			alert("Update successful.");
 			location.href = "/";
 

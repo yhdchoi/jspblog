@@ -58,7 +58,7 @@
         <c:otherwise>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="/user/detail">My Profile</a>
+              <a class="nav-link" href="/user/profile">My Profile</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/board/registerBoard">Write</a>

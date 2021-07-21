@@ -13,14 +13,21 @@
   <br />
 
   <div class="form-group">
-    <label for="username" id="id">
-      Article#:
-      <i>${board.id}</i>
-    </label>
-    <label for="username">Written by: ${board.user.username}</label>
-    <label for="modeDate"> Written on: ${board.user.modDate} </label>
-
+    Article#:
+    <span id="id">
+      <i>${board.id} </i>
+    </span>
+    Written by:
+    <span>
+      <i> ${board.user.username} </i>
+    </span>
+    Written on:
+    <span>
+      <i> ${board.user.modDate} </i>
+    </span>
   </div>
+  
+  <hr>
 
   <div class="form-group">
     <h3 id="title">${board.title}</h3>

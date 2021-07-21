@@ -1,7 +1,5 @@
 package com.yhdc.jspblog.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,15 +23,15 @@ import com.yhdc.jspblog.service.BoardService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/board/")
 @RequiredArgsConstructor
 public class BoardApiController {
 
 	private final BoardService boardService;
 
 	// Search List
-	@GetMapping("/listSearch")
-	public ResponseEntity<Page<Board>> boardSearchList(@RequestParam(required = false,defaultValue = "") String title, @RequestParam(required = false,defaultValue = "") String content,
+	@GetMapping("/api/board/listSearch")
+	public ResponseEntity<Page<Board>> boardSearchList(@RequestParam(required = false, defaultValue = "") String title,
+			@RequestParam(required = false, defaultValue = "") String content,
 			@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 		Page<Board> boards = boardService.boardSearchList(title, content, pageable);
 
@@ -42,7 +39,7 @@ public class BoardApiController {
 	}
 
 	// Read
-	@GetMapping("/read/{id}")
+	@GetMapping("/api/board/read/{id}")
 	public ResponseEntity<Board> read(@PathVariable Long id) {
 		Board board = boardService.read(id);
 
@@ -50,27 +47,29 @@ public class BoardApiController {
 	}
 
 	// New Board
-	@PostMapping("/register")
-	public ResponseEntity<Integer> registerBoard(@Valid @RequestBody Board newBoard, @AuthenticationPrincipal PrincipalDetail principal) {
+	@PostMapping("/api/board/register")
+	public ResponseEntity<Integer> registerBoard(@RequestBody Board newBoard,
+			@AuthenticationPrincipal PrincipalDetail principal) {
 		Integer result = boardService.registerBoard(newBoard, principal.getUser());
 
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 
 	// Update Board
-	@PutMapping("/update/{id}")
-	public ResponseEntity<Integer> updateBoard(@PathVariable Long id, @Valid @RequestBody Board newBoard) {
-		int result = boardService.updateBoard(id, newBoard);
+	@PutMapping("/api/board/update/{id}")
+	public ResponseEntity<Integer> updateBoard(@PathVariable Long id, @RequestBody Board newBoard) {
+		
+		boardService.updateBoard(id, newBoard);
 
-		return new ResponseEntity<Integer>(result, HttpStatus.OK);
+		return new ResponseEntity<Integer>(1, HttpStatus.OK);
 	}
 
 	// Delete Board
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/api/board/delete/{id}")
 	public ResponseEntity<Integer> deleteBoard(@PathVariable Long id) {
 
-		int result = boardService.deleteBoard(id);
+		boardService.deleteBoard(id);
 
-		return new ResponseEntity<Integer>(result, HttpStatus.OK);
+		return new ResponseEntity<Integer>(1, HttpStatus.OK);
 	}
 }

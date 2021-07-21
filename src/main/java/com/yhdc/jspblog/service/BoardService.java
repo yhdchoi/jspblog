@@ -1,6 +1,5 @@
 package com.yhdc.jspblog.service;
 
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -74,12 +73,8 @@ public class BoardService {
 
 	// Delete Board
 	@Transactional
-	public Integer deleteBoard(Long id) {
-		try {
-			boardRepository.deleteById(id);
-		} catch (EmptyResultDataAccessException e) {
-			return -1;
-		}
-		return 1;
+	public void deleteBoard(Long id) {
+		boardRepository.deleteById(id);
+
 	}
 }

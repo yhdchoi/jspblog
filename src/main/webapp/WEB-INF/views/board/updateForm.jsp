@@ -7,11 +7,12 @@
   <!-- class="was-validated" -->
 
   <form class="mt-6 mb-6">
-  <input type="hidden" id="id" value="${board.id}"/>
-  
+    <input type="hidden" id="id" value="${board.id}" />
+
+
     <div class="form-group">
-      <input type="text" value="${board.title}" class="form-control mt-2 mb-3" id="title" placeholder="Title here"
-        required>
+      <input type="text" value="${board.title}" class="form-control mt-2 mb-3" id="title"
+        placeholder="Title here" required>
       <!-- <div class="valid-feedback">Valid.</div>
       <div class="invalid-feedback">Please fill out this field.</div> -->
     </div>

@@ -2,12 +2,12 @@
 
 <%@include file="../layout/header.jsp"%>
 
-<div class="container min-vh-100 mt-5 mb-5">
+<div class="container min-vh-100 mt-5 mb-5 text-center">
 
   <!-- class="was-validated" -->
   <h3>Join</h3>
   <br />
-  <form class="mt-5 mb-5">
+  <form>
     <div class="form-group w-50 m-auto">
       <input type="text" class="form-control mt-2 mb-3" id="username" placeholder="Enter Username"
         name="username" required>
@@ -35,6 +35,8 @@
   <div class="mt-5">
     <button class="btn btn-outline-success" id="btn-join">Submit</button>
   </div>
+      <a href="#"><img height="38" src="/images/kakao_login.png" /></a>
+  
 
 </div>
 

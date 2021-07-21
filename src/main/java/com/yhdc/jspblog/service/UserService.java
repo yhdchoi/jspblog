@@ -25,6 +25,7 @@ public class UserService {
 
 
 	// Search and List User
+	@Transactional(readOnly = true)
 	public Page<User> userSearchList(String username, String email,
 			@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
@@ -34,6 +35,7 @@ public class UserService {
 	}
 
 	// Detail
+	@Transactional(readOnly = true)
 	public User detail(Long id) {
 
 		User user = userRepository.findById(id).orElseThrow(() -> {
@@ -60,18 +62,19 @@ public class UserService {
 
 	// Update User
 	@Transactional
-	public User updateUser(Long id, User updateUser) {
-		User user = userRepository.findById(id).orElseThrow(() -> {
+	public Integer updateUser(Long id, User updateUser) {
+		User persistance = userRepository.findById(id).orElseThrow(() -> {
 			return new IllegalArgumentException("THE USER DOES NOT EXIST.");
 		});
 
-		user.setEmail(updateUser.getEmail());
-		user.setPassword(updateUser.getPassword());
+		persistance.setEmail(updateUser.getEmail());
+		persistance.setPassword(bCryptPasswordEncoder.encode(updateUser.getPassword()));
 
-		return user;
+		return 1;
 	}
 
 	// Delete User
+	@Transactional
 	public String deleteUser(Long id) {
 		try {
 			userRepository.deleteById(id);

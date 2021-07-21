@@ -5,7 +5,7 @@
 
 <!-- Search -->
   <form action="/" method="GET" class="d-flex me-4 mb-4">
-    <input class="form-control me-2" type="search" id="search" name="search" placeholder="Search from Title and(or) Content" aria-label="Search">
+    <input class="form-control mr-2" type="search" id="search" name="search" placeholder="Search keyword" aria-label="Search">
     <button class="btn btn-outline-success" type="submit" id="btn-search">Search</button>
   </form>
   <br />

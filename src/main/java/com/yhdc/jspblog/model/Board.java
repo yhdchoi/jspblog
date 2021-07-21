@@ -41,7 +41,7 @@ public class Board {
 
 	@Column(columnDefinition = "text")
 	private String content;
-	
+
 	private int count;
 
 	@Enumerated(EnumType.STRING)
@@ -54,7 +54,7 @@ public class Board {
 	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
 	private List<Comment> comments;
 
-	@CreationTimestamp()
+	@CreationTimestamp
 	private Timestamp regDate;
 
 	@UpdateTimestamp

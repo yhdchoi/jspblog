@@ -7,27 +7,49 @@
   <!-- Image -->
 
   <div class="form-group">
-    <label for="username">${user.username}</label>
+    <input type="hidden" id="id" value="${principal.user.id}" />
+
+    <label for="username">Username: </label>
+    <input type="text" class="form-control" id="username" value="${principal.user.username}"
+      readonly>
+
   </div>
   <br />
 
   <div class="form-group">
-    <label for="username">${user.email}</label>
+    <label for="email">Email: </label>
+    <input type="email" class="form-control" id="email" value="${principal.user.email}">
   </div>
   <br />
 
   <div class="form-group">
-    <label for="username">Created on: ${user.regDate}</label>
+    <label for="password">Password: </label>
+    <input type="password" class="form-control" id="password">
   </div>
   <br />
 
   <div class="form-group">
-    <label for="username">Updated on: ${user.modDate} </label>
+    <label for="password">Confirm Password: </label>
+    <input type="password" class="form-control" id="confirmpassword">
+  </div>
+  <br />
+
+  <div class="form-group">
+    <label for="regDate">Created on: </label>
+    <input type="text" class="form-control" id="regDate" value="${principal.user.regDate}" readonly>
+
+  </div>
+  <br />
+
+  <div class="form-group">
+    <label for="modDate">Updated on: </label>
+    <input type="text" class="form-control" id="modeDate" value="${principal.user.modDate}" readonly>
+
   </div>
   <hr />
 
   <div class="mt-2 ">
-    <button class="btn btn-outline-warning" id="btn-edit">Edit</button>
+    <button class="btn btn-outline-warning" id="btn-update">Save Changes</button>
     <button class="btn btn-outline-danger" id="btn-delete">Delete</button>
   </div>
 
