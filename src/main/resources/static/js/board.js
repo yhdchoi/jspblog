@@ -12,7 +12,7 @@ let index = {
 			this.updateById();
 		});
 		
-		$("#btn-comment--post").on("click", () => {
+		$("#btn-comment-post").on("click", () => {
 			this.commentPost();
 		});
 	},
@@ -88,12 +88,12 @@ let index = {
 		let data = {
 			userId: $("#userId").val(),
 			boardId: $("#boardId").val(),
-			content: $("#comment--content").val()
+			content: $("#comment-content").val()
 		};
 		
 		$.ajax({
 			type: "POST",
-			url: `/api/board/${data.boardId}`,
+			url: `/api/board/${data.boardId}/comment`,
 			data: JSON.stringify(data),
 			contentType: 'application/json; charset=utf-8',
 			dataType: 'json'
@@ -101,6 +101,22 @@ let index = {
 		}).done(function() {
 			alert("Your comment has been posted!")
 			location.href = `/board/${data.boardId}`;
+
+		}).fail(function() {
+			alert(JSON.stringify(error));
+		});
+	},
+	
+	commentDelete: function(boardId, commentId) {
+		
+		$.ajax({
+			type: "DELETE",
+			url: `/api/board/${boardId}/comment/${commentId}`,
+			dataType: 'json'
+
+		}).done(function() {
+			alert("Your comment has been deleted!")
+			location.href = `/board/${boardId}`;
 
 		}).fail(function() {
 			alert(JSON.stringify(error));

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,17 +22,16 @@ import com.yhdc.jspblog.service.CommentService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/comment/")
 @RequiredArgsConstructor
 public class CommentApiController {
 
 	private final CommentService commentService;
 
-	//TODO Search List
-	@GetMapping("/list")
+	// TODO Search List
+	@GetMapping("/api/comment/list")
 	public ResponseEntity<Page<Comment>> commentSearchList(@RequestParam String content,
 			@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-		
+
 		Page<Comment> comments = commentService.commentSearchList(content, pageable);
 
 		return new ResponseEntity<Page<Comment>>(comments, HttpStatus.OK);
@@ -48,21 +46,21 @@ public class CommentApiController {
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 
-	//TODO Update Comment
-	@PutMapping("/update/{id}")
+	// TODO Update Comment
+	@PutMapping("/api/comment/update/{id}")
 	public ResponseEntity<Comment> updateComment(@PathVariable Long id, @RequestBody Comment newComment) {
-		
+
 		Comment comment = commentService.updateComment(id, newComment);
 
 		return new ResponseEntity<Comment>(comment, HttpStatus.OK);
 	}
 
-	//TODO Delete Comment
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Integer> deleteComment(@PathVariable Long id) {
-		
-		int result = commentService.deleteComment(id);
+	// TODO Delete Comment
+	@DeleteMapping("/api/board/{boardId}/comment/{commentId}")
+	public ResponseEntity<Integer> deleteComment(@PathVariable Long commentId) {
 
-		return new ResponseEntity<Integer>(result, HttpStatus.OK);
+		commentService.deleteComment(commentId);
+
+		return new ResponseEntity<Integer>(1, HttpStatus.OK);
 	}
 }

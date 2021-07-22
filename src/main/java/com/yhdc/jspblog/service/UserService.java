@@ -1,6 +1,5 @@
 package com.yhdc.jspblog.service;
 
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -34,12 +33,9 @@ public class UserService {
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("UserService: register()" + e.getMessage());
 		}
 		return -1;
 	}
-
-	//TODO Kakao Login
 
 	// Find user
 	@Transactional(readOnly = true)
@@ -70,37 +66,35 @@ public class UserService {
 		});
 		return user;
 	}
-	
-	//TODO Password Recover
 
-	// Update User
+	// TODO Password Recover
+
+	// Update
 	@Transactional
 	public Integer updateUser(Long id, User updateUser) {
 		User persistance = userRepository.findById(id).orElseThrow(() -> {
 			return new IllegalArgumentException("THE USER DOES NOT EXIST.");
 		});
-		
+
 		// Validation check
 		if (persistance.getOauth() == null) {
 			persistance.setEmail(updateUser.getEmail());
-			persistance.setPassword(bCryptPasswordEncoder.encode(updateUser.getPassword()));			
+			persistance.setPassword(bCryptPasswordEncoder.encode(updateUser.getPassword()));
 		} else {
 			return -1;
 		}
-
 		return 1;
 	}
 
 	// Delete User
 	@Transactional
-	public String deleteUser(Long id) {
+	public Integer deleteUser(Long id) {
 		try {
 			userRepository.deleteById(id);
-		} catch (EmptyResultDataAccessException e) {
-			return "THE USER DOES NOT EXIST.";
+		} catch (Exception e) {
+			return -1;
 		}
-
-		return "DELETED";
+		return 1;
 	}
 
 }

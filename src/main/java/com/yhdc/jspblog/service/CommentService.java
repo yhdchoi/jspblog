@@ -1,6 +1,5 @@
 package com.yhdc.jspblog.service;
 
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -27,7 +26,7 @@ public class CommentService {
 	private final BoardRepository boardRepository;
 	private final UserRepository userRepository;
 
-	//TODO Search List
+	// TODO Search List
 	@Transactional(readOnly = true)
 	public Page<Comment> commentSearchList(String content,
 			@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
@@ -54,7 +53,7 @@ public class CommentService {
 		return 1;
 	}
 
-	//TODO Update
+	// TODO Update
 	@Transactional
 	public Comment updateComment(Long id, Comment newComment) {
 		Comment comment = commentRepository.findById(id).orElseThrow(() -> {
@@ -65,14 +64,11 @@ public class CommentService {
 		return comment;
 	}
 
-	//TODO Delete
+	// Delete
 	@Transactional
-	public Integer deleteComment(Long id) {
-		try {
-			commentRepository.deleteById(id);
-		} catch (EmptyResultDataAccessException e) {
-			return -1;
-		}
-		return 1;
+	public void deleteComment(Long commentId) {
+
+		commentRepository.deleteById(commentId);
+
 	}
 }

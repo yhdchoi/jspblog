@@ -60,24 +60,18 @@ public class UserApiController {
 
 		int result = userService.updateUser(id, updateUser);
 
-//		Authentication authentication = new UsernamePasswordAuthenticationToken(principal, null);
-//
-//		SecurityContext securityContext = SecurityContextHolder.getContext();
-//		
-//		securityContext.setAuthentication(authentication);
-//
-//		session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
-
+		// Force session update?
+		
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 
 	// Delete User
 	@DeleteMapping("/user/remove/{id}")
-	public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+	public ResponseEntity<Integer> deleteUser(@PathVariable Long id) {
 
-		String result = userService.deleteUser(id);
+		int result = userService.deleteUser(id);
 
-		return new ResponseEntity<String>(result, HttpStatus.OK);
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 
 }

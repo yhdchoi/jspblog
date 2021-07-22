@@ -30,7 +30,10 @@
     </div> -->
 
     <div class="mt-5 mb-4">
-      <button class="btn btn-outline-primary btn-sm" id="btn-login">Submit</button>
+      <button class="btn btn-outline-primary btn-sm" id="btn-login">Login</button>
+    </div>
+    <div class="mb-4">
+      <a class="btn btn-outline-success btn-sm" href="/auth/joinForm">Signup</a>
     </div>
     <a
       href="https://kauth.kakao.com/oauth/authorize?client_id=abcd6e06f02103cdd01e8fad0833bfe0&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code">

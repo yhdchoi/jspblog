@@ -5,7 +5,7 @@
 <div class="container min-vh-100 mt-5 mb-5 text-center">
 
   <!-- class="was-validated" -->
-  <h3>Join</h3>
+  <h3>Signup</h3>
   <br />
   <form>
     <div class="form-group w-50 m-auto">
@@ -28,12 +28,19 @@
       <!-- <div class="valid-feedback">Valid.</div>
       <div class="invalid-feedback">Please fill out this field.</div> -->
     </div>
+    <br />
+    <div class="form-group w-50 m-auto">
+      <input type="password" class="form-control mt-2" id="confirmpassword" placeholder="Confirm password"
+        name="confirmpassword" required>
+      <!-- <div class="valid-feedback">Valid.</div>
+      <div class="invalid-feedback">Please fill out this field.</div> -->
+    </div>
   </form>
 
   <br>
 
   <div class="mt-5 mb-4">
-    <button class="btn btn-outline-success btn-sm" id="btn-join">Submit</button>
+    <button class="btn btn-outline-success btn-sm" id="btn-join">Signup</button>
   </div>
 
 </div>

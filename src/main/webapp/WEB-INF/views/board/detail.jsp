@@ -16,7 +16,7 @@
 
   <div class="form-group d-flex justify-content-between">
     <div>
-      Article#:
+      Article #:
       <span id="id">
         <i>${board.id} </i>
       </span>
@@ -45,14 +45,14 @@
 
   <div class="card">
     <form>
-     <input type="hidden" id="userId" value="${principal.user.id}" />
+      <input type="hidden" id="userId" value="${principal.user.id}" />
       <input type="hidden" id="boardId" value="${board.id}" />
       <div class="card-body">
-        <textarea class="form-control summernote" rows="2" id="comment--content"></textarea>
+        <textarea class="form-control summernote" rows="2" id="comment-content"></textarea>
       </div>
 
       <div class="card-footer">
-        <button type="button" class="btn btn-info" id="btn-comment--post">Post</button>
+        <button type="button" class="btn btn-info" id="btn-comment-post">Post</button>
       </div>
     </form>
   </div>
@@ -62,13 +62,21 @@
   <div class="card">
     <div class="card-header">Comments:</div>
     <ul class="list-group" id="comment--box">
+
       <c:forEach var="comment" items="${board.comments}">
-        <li class="list-group-item d-flex justify-content-between" id="coment--1">
-          <div>${comment.content}</div>
+        <li class="list-group-item d-flex flex-column" id="comment-${comment.id}">
+
           <div class="d-flex">
-            <div class="font-italic">By: ${comment.user.username}</div>
-            <button class="badge ">Delete</button>
+            <div class="font-italic mr-2 ">By: ${comment.user.username}</div>
+            <c:if test="${board.user.id == principal.user.id}">
+              
+                <button class="badge ml-auto " onclick="index.commentDelete(${board.id}, ${comment.id})">Delete</button>
+              
+            </c:if>
           </div>
+          <br />
+          <div>${comment.content}</div>
+          
         </li>
       </c:forEach>
     </ul>

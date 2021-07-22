@@ -3,6 +3,7 @@ package com.yhdc.jspblog.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -56,7 +57,7 @@ public class Board {
 	private User user;
 
 	
-	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties({"board"})
 	@OrderBy("id desc")
 	private List<Comment> comments;
