@@ -33,38 +33,41 @@ public class BoardApiController {
 	public ResponseEntity<Page<Board>> boardSearchList(@RequestParam(required = false, defaultValue = "") String title,
 			@RequestParam(required = false, defaultValue = "") String content,
 			@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+		
 		Page<Board> boards = boardService.boardSearchList(title, content, pageable);
 
 		return new ResponseEntity<Page<Board>>(boards, HttpStatus.OK);
 	}
 
-	// Read
+	// Detail
 	@GetMapping("/api/board/read/{id}")
-	public ResponseEntity<Board> read(@PathVariable Long id) {
-		Board board = boardService.read(id);
+	public ResponseEntity<Board> detail(@PathVariable Long id) {
+		
+		Board board = boardService.detail(id);
 
 		return new ResponseEntity<Board>(board, HttpStatus.OK);
 	}
 
-	// New Board
+	// Save
 	@PostMapping("/api/board/register")
-	public ResponseEntity<Integer> registerBoard(@RequestBody Board newBoard,
+	public ResponseEntity<Integer> saveBoard(@RequestBody Board newBoard,
 			@AuthenticationPrincipal PrincipalDetail principal) {
-		Integer result = boardService.registerBoard(newBoard, principal.getUser());
+		
+		Integer result = boardService.saveBoard(newBoard, principal.getUser());
 
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 
-	// Update Board
+	// Update 
 	@PutMapping("/api/board/update/{id}")
 	public ResponseEntity<Integer> updateBoard(@PathVariable Long id, @RequestBody Board newBoard) {
-		
+
 		boardService.updateBoard(id, newBoard);
 
 		return new ResponseEntity<Integer>(1, HttpStatus.OK);
 	}
 
-	// Delete Board
+	// Delete 
 	@DeleteMapping("/api/board/delete/{id}")
 	public ResponseEntity<Integer> deleteBoard(@PathVariable Long id) {
 
@@ -72,4 +75,5 @@ public class BoardApiController {
 
 		return new ResponseEntity<Integer>(1, HttpStatus.OK);
 	}
+
 }

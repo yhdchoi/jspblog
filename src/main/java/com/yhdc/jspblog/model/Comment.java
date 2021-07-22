@@ -55,4 +55,10 @@ public class Comment {
 	@UpdateTimestamp
 	private Timestamp modDate;
 
+	public void save(String content, PrivacyType privacyType, User user, Board board) {
+		setContent(content);
+		setPrivacy(privacyType);
+		setUser(user);
+		setBoard(board);
+	}
 }

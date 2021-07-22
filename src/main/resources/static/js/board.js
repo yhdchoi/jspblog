@@ -11,6 +11,10 @@ let index = {
 		$("#btn-update").on("click", () => {
 			this.updateById();
 		});
+		
+		$("#btn-comment--post").on("click", () => {
+			this.commentPost();
+		});
 	},
 
 	save: function() {
@@ -74,6 +78,31 @@ let index = {
 			location.href = "/";
 
 		}).fail(function(error) {
+			alert(JSON.stringify(error));
+		});
+	},
+	
+	
+	commentPost: function() {
+
+		let data = {
+			userId: $("#userId").val(),
+			boardId: $("#boardId").val(),
+			content: $("#comment--content").val()
+		};
+		
+		$.ajax({
+			type: "POST",
+			url: `/api/board/${data.boardId}`,
+			data: JSON.stringify(data),
+			contentType: 'application/json; charset=utf-8',
+			dataType: 'json'
+
+		}).done(function() {
+			alert("Your comment has been posted!")
+			location.href = `/board/${data.boardId}`;
+
+		}).fail(function() {
 			alert(JSON.stringify(error));
 		});
 	},

@@ -1,5 +1,6 @@
 package com.yhdc.jspblog.service;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,33 +19,30 @@ public class BoardService {
 
 	private final BoardRepository boardRepository;
 
-	// List
-	@Transactional(readOnly = true)
-	public Page<Board> list(Pageable pageable) {
-
-		return boardRepository.findAll(pageable);
-	}
-
+	
 	// Search List
 	@Transactional(readOnly = true)
 	public Page<Board> boardSearchList(String title, String content, Pageable pageable) {
+		
 		Page<Board> boards = boardRepository.findByTitleContainingOrContentContaining(title, content, pageable);
 
 		return boards;
 	}
 
-	// Read
+	// Detail
 	@Transactional(readOnly = true)
-	public Board read(Long id) {
+	public Board detail(Long id) {
+		
 		Board board = boardRepository.findById(id).orElseThrow(() -> {
 			return new IllegalArgumentException("THE BOARD DOES NOT EXIST.");
-		});
+		});		
 		return board;
 	}
 
-	// Register
+	// Save
 	@Transactional
-	public Integer registerBoard(Board newBoard, User user) {
+	public Integer saveBoard(Board newBoard, User user) {
+		
 		try {
 			newBoard.setCount(0);
 			newBoard.setPrivacy(PrivacyType.PUBLIC);
@@ -58,9 +56,10 @@ public class BoardService {
 		return -1;
 	}
 
-	// Update Board
+	// Update
 	@Transactional
 	public Integer updateBoard(Long id, Board updateBoard) {
+		
 		Board board = boardRepository.findById(id).orElseThrow(() -> {
 			return new IllegalArgumentException("THE BOARD DOES NOT EXIST.");
 		});
@@ -71,10 +70,17 @@ public class BoardService {
 		return 1;
 	}
 
-	// Delete Board
+	// Delete
 	@Transactional
-	public void deleteBoard(Long id) {
-		boardRepository.deleteById(id);
-
+	public Integer deleteBoard(Long id) {
+		
+		//TODO Delete all comments
+		
+		try {
+			boardRepository.deleteById(id);			
+		} catch (EmptyResultDataAccessException e) {
+			return -1;
+		}
+		return 1;
 	}
 }

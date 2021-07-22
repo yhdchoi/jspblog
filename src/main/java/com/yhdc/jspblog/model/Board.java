@@ -14,10 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.yhdc.jspblog.model.enums.PrivacyType;
 
 import lombok.AllArgsConstructor;
@@ -53,7 +55,10 @@ public class Board {
 	@JoinColumn(name = "userId")
 	private User user;
 
+	
 	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
+	@JsonIgnoreProperties({"board"})
+	@OrderBy("id desc")
 	private List<Comment> comments;
 
 	@CreationTimestamp

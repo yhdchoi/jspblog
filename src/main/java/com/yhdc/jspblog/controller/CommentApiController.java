@@ -1,9 +1,5 @@
 package com.yhdc.jspblog.controller;
 
-import javax.transaction.Transactional;
-import javax.validation.Valid;
-
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -20,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.yhdc.jspblog.dto.SaveCommentDto;
 import com.yhdc.jspblog.model.Comment;
-import com.yhdc.jspblog.repository.CommentRepository;
+import com.yhdc.jspblog.service.CommentService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,57 +27,42 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CommentApiController {
 
-	private final CommentRepository commentRepository;
+	private final CommentService commentService;
 
-	// Search List
+	//TODO Search List
 	@GetMapping("/list")
 	public ResponseEntity<Page<Comment>> commentSearchList(@RequestParam String content,
 			@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-		Page<Comment> comments = commentRepository.findByContentContaining(content, pageable);
+		
+		Page<Comment> comments = commentService.commentSearchList(content, pageable);
 
 		return new ResponseEntity<Page<Comment>>(comments, HttpStatus.OK);
 	}
 
-	// Detail
-	@GetMapping("/read/{id}")
-	public ResponseEntity<Comment> read(@PathVariable Long id) {
-		Comment comment = commentRepository.findById(id).orElseThrow(() -> {
-			return new IllegalArgumentException("THE COMMENT DOES NOT EXIST.");
-		});
-
-		return new ResponseEntity<Comment>(comment, HttpStatus.OK);
-	}
-
 	// New Comment
-	@PostMapping("/register")
-	public ResponseEntity<Comment> registerComment(@Valid @RequestBody Comment newComment) {
-		Comment comment = commentRepository.save(newComment);
+	@PostMapping("/api/board/{id}/comment")
+	public ResponseEntity<Integer> saveComment(@RequestBody SaveCommentDto newComment) {
 
-		return new ResponseEntity<Comment>(comment, HttpStatus.OK);
+		Integer result = commentService.saveComment(newComment);
+
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 
-	// Update Comment
-	@Transactional
+	//TODO Update Comment
 	@PutMapping("/update/{id}")
-	public ResponseEntity<Comment> updateComment(@PathVariable Long id, @Valid @RequestBody Comment newComment) {
-		Comment comment = commentRepository.findById(id).orElseThrow(() -> {
-			return new IllegalArgumentException("THE COMMENT DOES NOT EXIST.");
-		});
-
-		comment.setContent(newComment.getContent());
+	public ResponseEntity<Comment> updateComment(@PathVariable Long id, @RequestBody Comment newComment) {
+		
+		Comment comment = commentService.updateComment(id, newComment);
 
 		return new ResponseEntity<Comment>(comment, HttpStatus.OK);
 	}
 
-	// Delete Comment
+	//TODO Delete Comment
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteComment(@PathVariable Long id) {
-		try {
-			commentRepository.deleteById(id);
-		} catch (EmptyResultDataAccessException e) {
-			return new ResponseEntity<String>("THE COMMENT DOES NOT EXIST.", HttpStatus.NOT_FOUND);
-		}
+	public ResponseEntity<Integer> deleteComment(@PathVariable Long id) {
+		
+		int result = commentService.deleteComment(id);
 
-		return new ResponseEntity<String>("DELETED", HttpStatus.OK);
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 }

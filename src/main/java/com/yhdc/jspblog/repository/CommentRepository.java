@@ -9,5 +9,5 @@ import com.yhdc.jspblog.model.Comment;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
 	Page<Comment> findByContentContaining(String content, Pageable pageable);
-
+	
 }

@@ -21,6 +21,7 @@ public class BoardController {
 
 	private final BoardService boardService;
 
+	// List INDEX
 	@GetMapping({ "", "/" })
 	public String index(Model model, @RequestParam(required = false, defaultValue = "") String search,
 			@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
@@ -40,24 +41,27 @@ public class BoardController {
 		return "index";
 	}
 
+	// Detail
+	@GetMapping("/board/{id}")
+	public String read(Model model, @PathVariable Long id) {
+
+		Board board = boardService.detail(id);
+		model.addAttribute("board", board);
+
+		return "/board/detail";
+	}
+
+	// Save
 	@GetMapping("/board/registerBoard")
 	public String registerBoard() {
 		return "board/registerBoard";
 	}
-	
-	@GetMapping("/board/update/{id}")
-	public String updateBoard(Model model, @PathVariable Long id) {		
-		model.addAttribute("board", boardService.read(id));
-		return "board/updateForm";
-	}
 
-	@GetMapping("/board/{id}")
-	public String read(Model model, @PathVariable Long id) {
-		
-		Board board = boardService.read(id);		
-		model.addAttribute("board", board);
-		
-		return "/board/detail";
+	// Update
+	@GetMapping("/board/update/{id}")
+	public String updateBoard(Model model, @PathVariable Long id) {
+		model.addAttribute("board", boardService.detail(id));
+		return "board/updateForm";
 	}
 
 }

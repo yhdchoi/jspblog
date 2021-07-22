@@ -58,7 +58,7 @@ public class UserApiController {
 	@PutMapping("/user/update/{id}")
 	public ResponseEntity<Integer> updateUser(@PathVariable Long id, @RequestBody User updateUser) {
 
-		userService.updateUser(id, updateUser);
+		int result = userService.updateUser(id, updateUser);
 
 //		Authentication authentication = new UsernamePasswordAuthenticationToken(principal, null);
 //
@@ -68,7 +68,7 @@ public class UserApiController {
 //
 //		session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
 
-		return new ResponseEntity<Integer>(1, HttpStatus.OK);
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 
 	// Delete User
