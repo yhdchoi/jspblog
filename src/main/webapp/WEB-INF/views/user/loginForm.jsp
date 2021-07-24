@@ -11,23 +11,12 @@
     <div class="form-group w-50 m-auto">
       <input type="text" class="form-control mt-2 mb-3" id="username" placeholder="Enter username"
         name="username" required>
-      <!-- <div class="valid-feedback">Valid.</div>
-      <div class="invalid-feedback">Please fill out this field.</div> -->
     </div>
     <br />
     <div class="form-group w-50 mb-4 m-auto">
       <input type="password" class="form-control mt-2 " id="password" placeholder="Enter password"
-        name="password" required>
-      <!-- <div class="valid-feedback">Valid.</div>
-      <div class="invalid-feedback">Please fill out this field.</div> -->
+        name="password" required> 
     </div>
-
-    <!--     <div class="form-group form-check mt-5 ">
-      <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" name="remember" id="remember">
-        Remember me.
-      </label>
-    </div> -->
 
     <div class="mt-5 mb-4">
       <button class="btn btn-outline-primary btn-sm" id="btn-login">Login</button>

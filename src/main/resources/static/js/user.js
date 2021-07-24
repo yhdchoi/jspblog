@@ -11,7 +11,7 @@ let index = {
 
 	save: function() {
 
-		//TODO: Confirm Password check
+		// Confirm Password check
 		let pw = $("#password").val();
 		let confirmpw = $("#confirmpassword").val();
 
@@ -33,7 +33,7 @@ let index = {
 				contentType: 'application/json; charset=utf-8',
 				dataType: 'json'
 	
-			}).done(function() {
+			}).done(function(resp) {
 				if (resp.status == 500) {
 					alert("Existing account Please Login.");
 				} else {

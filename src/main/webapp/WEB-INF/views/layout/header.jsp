@@ -50,9 +50,6 @@
             <li class="nav-item">
               <a class="nav-link" href="/auth/loginForm">Login</a>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link" href="/auth/joinForm">Join</a>
-            </li> -->
           </ul>
         </c:when>
         <c:otherwise>
