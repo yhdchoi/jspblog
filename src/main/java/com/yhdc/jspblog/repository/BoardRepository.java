@@ -10,10 +10,8 @@ import com.yhdc.jspblog.model.Board;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
-	// Search title
 	List<Board> findByTitle(String title);
 
-	// Search title and content
 	Page<Board> findByTitleContainingOrContentContaining(String title, String content, Pageable pageable);
 
 }
