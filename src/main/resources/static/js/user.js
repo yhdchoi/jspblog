@@ -11,7 +11,6 @@ let index = {
 
 	save: function() {
 
-		// Confirm Password check
 		let pw = $("#password").val();
 		let confirmpw = $("#confirmpassword").val();
 

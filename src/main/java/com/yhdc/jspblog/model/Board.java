@@ -35,6 +35,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+
 public class Board {
 
 	@Id
@@ -57,7 +58,8 @@ public class Board {
 	private User user;
 
 	
-	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER, 
+			cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties({"board"})
 	@OrderBy("id desc")
 	private List<Comment> comments;

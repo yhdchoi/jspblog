@@ -39,7 +39,6 @@ public class CommentService {
 	@Transactional
 	public Integer saveComment(SaveCommentDto commentDto) {
 
-		// TODO Select method
 		PrivacyType privacyType = PrivacyType.PUBLIC;
 
 		String content = commentDto.getContent();

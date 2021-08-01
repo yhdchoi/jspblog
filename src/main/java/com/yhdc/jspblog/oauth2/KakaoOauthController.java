@@ -30,7 +30,6 @@ public class KakaoOauthController {
 //	private final AuthenticationManager authenticationManager;
 	
 
-	// Kakao Login
 	@GetMapping("/auth/kakao/callback")
 	public @ResponseBody String kakaoCallback(String code) {
 
@@ -50,7 +49,6 @@ public class KakaoOauthController {
 		params.add("client_id", clientId);
 		params.add("redirect_uri", redirectUri);
 		params.add("code", code);
-		// Use variables
 
 		HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
 
@@ -94,7 +92,6 @@ public class KakaoOauthController {
 		}
 
 		// Add info to User DB
-
 		Integer tempPasswordkakaoId = kakaoProfile.getId();
 		String kakaoEmail = kakaoProfile.getKakao_account().getEmail();				
 

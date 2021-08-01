@@ -46,7 +46,7 @@ public class CommentApiController {
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 
-	// TODO Update Comment
+	// Update Comment
 	@PutMapping("/api/comment/update/{id}")
 	public ResponseEntity<Comment> updateComment(@PathVariable Long id, @RequestBody Comment newComment) {
 
@@ -55,7 +55,7 @@ public class CommentApiController {
 		return new ResponseEntity<Comment>(comment, HttpStatus.OK);
 	}
 
-	// TODO Delete Comment
+	// Delete Comment
 	@DeleteMapping("/api/board/{boardId}/comment/{commentId}")
 	public ResponseEntity<Integer> deleteComment(@PathVariable Long commentId) {
 

@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+
 public class UserService {
 
 	private final UserRepository userRepository;
@@ -67,8 +68,6 @@ public class UserService {
 		return user;
 	}
 
-	// TODO Password Recover
-
 	// Update
 	@Transactional
 	public Integer updateUser(Long id, User updateUser) {
@@ -76,7 +75,6 @@ public class UserService {
 			return new IllegalArgumentException("THE USER DOES NOT EXIST.");
 		});
 
-		// Validation check
 		if (persistance.getOauth() == null) {
 			persistance.setEmail(updateUser.getEmail());
 			persistance.setPassword(bCryptPasswordEncoder.encode(updateUser.getPassword()));
