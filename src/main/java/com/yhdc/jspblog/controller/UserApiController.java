@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.yhdc.jspblog.dto.ResetPwd;
 import com.yhdc.jspblog.model.User;
 import com.yhdc.jspblog.service.UserService;
 
@@ -54,17 +55,28 @@ public class UserApiController {
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 
-	// Update User
-	@PutMapping("/user/update/{id}")
-	public ResponseEntity<Integer> updateUser(@PathVariable Long id, @RequestBody User updateUser) {
+	// Reset Password
+	@PutMapping("/user/reset/{id}")
+	public ResponseEntity<Integer> resetPwd(@PathVariable Long id, @RequestBody ResetPwd resetPwd) {
 
-		int result = userService.updateUser(id, updateUser);
+		int result = userService.resetPwd(id, resetPwd);
 
-		// Force session update?
+		//TODO Force session update?
+		
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
+	}
+	
+	
+	// Recover Password
+	@PutMapping("/user/recover")
+	public ResponseEntity<Integer> recoverPwd(@RequestBody User updateUser) {
+
+		int result = userService.recoverPwd(updateUser);
 		
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 
+	
 	// Delete User
 	@DeleteMapping("/user/remove/{id}")
 	public ResponseEntity<Integer> deleteUser(@PathVariable Long id) {

@@ -5,53 +5,49 @@
 <div class="container min-vh-100 mt-5 mb-5">
 
   <!-- Image -->
+  
+  <form>
+    <div class="form-group">
+      <input type="hidden" id="id" value="${principal.user.id}" />
 
-  <div class="form-group">
-    <input type="hidden" id="id" value="${principal.user.id}" />
+      <label for="username">Username: </label>
+      <input type="text" class="form-control" id="username" value="${principal.user.username}"
+        readonly>
+    </div>
+    <br />
 
-    <label for="username">Username: </label>
-    <input type="text" class="form-control" id="username" value="${principal.user.username}"
-      readonly>
+    <div class="form-group">
+      <label for="email">Email: </label>
+      <input type="email" class="form-control" id="email" value="${principal.user.email}"
+        readonly="readonly">
+    </div>
+    <br />
 
-  </div>
+    <div class="form-group">
+      <label for="password">Current Password: </label>
+      <input type="password" class="form-control" id="currentpassword"
+        placeholder="Enter current password">
+    </div>
+    <br />
+
+    <div class="form-group">
+      <label for="newpassword">New Password: </label>
+      <input type="password" class="form-control" id="newpassword" placeholder="Enter new password">
+    </div>
+    <br />
+
+    <div class="form-group">
+      <label for="confirmpassword">Confirm New Password: </label>
+      <input type="password" class="form-control" id="confirmpassword"
+        placeholder="Confirm new password">
+    </div>
+  </form>
   <br />
 
-  <div class="form-group">
-    <label for="email">Email: </label>
-    <input type="email" class="form-control" id="email" value="${principal.user.email}" readonly="readonly">
-  </div>
-  <br />
-
-<c:if test="${empty principal.user.oauth}">
-  <div class="form-group">
-    <label for="password">Password: </label>
-    <input type="password" class="form-control" id="password">
-  </div>
-  <br />
-
-  <div class="form-group">
-    <label for="password">Confirm Password: </label>
-    <input type="password" class="form-control" id="confirmpassword">
-  </div>
-  <br />
-</c:if>
-
-  <div class="form-group">
-    <label for="regDate">Created on: </label>
-    <input type="text" class="form-control" id="regDate" value="${principal.user.regDate}" readonly>
-
-  </div>
-  <br />
-
-  <div class="form-group">
-    <label for="modDate">Updated on: </label>
-    <input type="text" class="form-control" id="modeDate" value="${principal.user.modDate}" readonly>
-
-  </div>
   <hr />
 
   <div class="mt-2 ">
-    <button class="btn btn-outline-warning" id="btn-update">Save Changes</button>
+    <a class="btn btn-outline-warning" id="btn-resetpassword">Reset Password</a>
     <button class="btn btn-outline-danger" id="btn-delete">Delete</button>
   </div>
 

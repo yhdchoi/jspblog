@@ -17,8 +17,11 @@
       <input type="password" class="form-control mt-2 " id="password" placeholder="Enter password"
         name="password" required> 
     </div>
+    
+    <a class="mt-5" href="/user/password">Recover Password</a>
+    
 
-    <div class="mt-5 mb-4">
+    <div class="mt-3 mb-4">
       <button class="btn btn-outline-primary btn-sm" id="btn-login">Login</button>
     </div>
     <div class="mb-4">
