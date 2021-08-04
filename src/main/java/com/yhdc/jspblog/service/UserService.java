@@ -83,7 +83,7 @@ public class UserService {
 		return 1;
 	}
 
-	// Check User & Recover
+	// Check User & SendEmail
 	@Transactional
 	public Integer checkUser(RecoverPwd recoverPwd) {
 
@@ -92,20 +92,10 @@ public class UserService {
 		userRepository.findByEmail(email).orElseThrow(() -> {
 			return new IllegalArgumentException("THE USER DOES NOT EXIST.");
 		});
-		
-		sendEmailService.createMail(recoverPwd);
 
-		return 1;
-	}
+		int result = sendEmailService.createMail(recoverPwd);
 
-	// Save TempPassword
-	@Transactional
-	public void saveTempPwd(String tempPwd, String userEamil) {
-		User user = userRepository.findByEmail(userEamil).orElseThrow(() -> {
-			return new IllegalArgumentException("THE USER DOES NOT EXIST.");
-		});
-		
-		user.setPassword(bCryptPasswordEncoder.encode(tempPwd));
+		return result;
 	}
 
 	// Delete User
