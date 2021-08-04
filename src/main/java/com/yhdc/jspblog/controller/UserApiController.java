@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yhdc.jspblog.dto.RecoverPwd;
+import com.yhdc.jspblog.dto.RecoverUserDto;
 import com.yhdc.jspblog.dto.UpdateUserDto;
 import com.yhdc.jspblog.model.User;
 import com.yhdc.jspblog.service.UserService;
@@ -71,10 +71,10 @@ public class UserApiController {
 
 	// Recover Password
 	@PutMapping("/auth/recover")
-	public ResponseEntity<Integer> recoverPwd(@RequestBody RecoverPwd recoverPwd) {
+	public ResponseEntity<Integer> recoverUserDto(@RequestBody RecoverUserDto recoverUserDto) {
 
-		log.info("recoverPwd: "+recoverPwd);
-		int result = userService.checkUser(recoverPwd);
+		log.info("recoverPwd: "+recoverUserDto);
+		int result = userService.checkUser(recoverUserDto);
 
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}

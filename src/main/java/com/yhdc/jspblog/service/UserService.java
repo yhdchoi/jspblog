@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yhdc.jspblog.dto.RecoverPwd;
+import com.yhdc.jspblog.dto.RecoverUserDto;
 import com.yhdc.jspblog.dto.UpdateUserDto;
 import com.yhdc.jspblog.model.User;
 import com.yhdc.jspblog.model.enums.EnableType;
@@ -105,16 +105,16 @@ public class UserService {
 
 	// Check User & SendEmail
 	@Transactional
-	public Integer checkUser(RecoverPwd recoverPwd) {
+	public Integer checkUser(RecoverUserDto recoverUserDto) {
 
-		String email = recoverPwd.getEmail();
+		String email = recoverUserDto.getEmail();
 		log.info("Email: "+email);
 		
 		userRepository.findByEmail(email).orElseThrow(() -> {
 			return new IllegalArgumentException("THE USER DOES NOT EXIST.");
 		});
 
-		int result = sendEmailService.createMail(recoverPwd);
+		int result = sendEmailService.createMail(recoverUserDto);
 		log.info("Result: "+result);
 		return result;
 	}

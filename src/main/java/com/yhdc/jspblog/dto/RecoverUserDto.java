@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RecoverPwd {
+public class RecoverUserDto {
 
 	private String username;
 	private String email;

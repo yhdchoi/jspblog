@@ -49,7 +49,7 @@ let index = {
 			});
 
 		}
-
+ 
 	},
 
 	update: function() {
