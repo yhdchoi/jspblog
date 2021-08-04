@@ -87,8 +87,6 @@ let index = {
 
 	recoverPassword: function() {
 
-		let id = $("#id").val();
-
 		let data = {
 			username: $("#username").val(),
 			email: $("#email").val()
@@ -96,7 +94,7 @@ let index = {
 		
 		$.ajax({
 			type: "PUT",
-			url: "/user/recover/" + id,
+			url: "/auth/recover/",
 			data: JSON.stringify(data),
 			contentType: 'application/json; charset=utf-8',
 			dataType: 'json'

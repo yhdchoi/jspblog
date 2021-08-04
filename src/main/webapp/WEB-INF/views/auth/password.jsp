@@ -2,7 +2,7 @@
 
 <%@include file="../layout/header.jsp"%>
 
-<div class="container min-vh-100 mt-5 mb-5">
+<div class="container min-vh-100 mt-5 mb-5 text-center">
 
   <form>
     <div class="form-group w-50 m-auto">
@@ -19,7 +19,7 @@
   <br />  
   <hr />
 
-  <div class="mt-2 ">
+  <div class="mt-2">
     <button class="btn btn-outline-danger" id="btn-recoverpassword">Recover Password</button>
   </div>
 

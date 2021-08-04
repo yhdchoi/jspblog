@@ -12,13 +12,19 @@ public class UserController {
 	// Join
 	@GetMapping("/auth/joinForm")
 	public String joinForm() {
-		return "user/joinForm";
+		return "auth/joinForm";
 	}
 
 	// Login
 	@GetMapping("/auth/loginForm")
 	public String login() {
-		return "user/loginForm";
+		return "auth/loginForm";
+	}
+
+	// Password Recover
+	@GetMapping("/auth/password")
+	public String recoverPwd() {
+		return "auth/password";
 	}
 
 	// User Update

@@ -14,11 +14,11 @@
     </div>
     <br />
     <div class="form-group w-50 mb-4 m-auto">
-      <input type="password" class="form-control mt-2 " id="password" placeholder="Enter password"
+      <input type="password" class="form-control mt-2 mb-2" id="password" placeholder="Enter password"
         name="password" required> 
     </div>
     
-    <a class="mt-5" href="/user/password">Recover Password</a>
+    <a class="fs-6 fst-italic" href="/auth/password">Forgot your password?</a>
     
 
     <div class="mt-3 mb-4">

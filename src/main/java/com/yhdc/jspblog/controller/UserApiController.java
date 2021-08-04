@@ -68,7 +68,7 @@ public class UserApiController {
 	}
 
 	// Recover Password
-	@PutMapping("/user/recover")
+	@PutMapping("/auth/recover")
 	public ResponseEntity<Integer> recoverPwd(@RequestBody RecoverPwd recoverPwd) {
 
 		int result = userService.checkUser(recoverPwd);
