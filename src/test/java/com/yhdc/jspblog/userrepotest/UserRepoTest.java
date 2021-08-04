@@ -1,7 +1,5 @@
 package com.yhdc.jspblog.userrepotest;
 
-import java.util.stream.IntStream;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,14 +16,23 @@ public class UserRepoTest {
 	@Autowired
 	private UserRepository userRepository;
 
+//	@Test
+//	public void insert() {
+//
+//		User user = User.builder().username("Daniel").password(new BCryptPasswordEncoder().encode("qwer"))
+//				.email("yhdchoi@naver.com").role(RoleType.ADMIN).enable(EnableType.ENABLE).build();
+//
+//		userRepository.save(user);
+//
+//	}
+	
 	@Test
-	public void insert() {
-		IntStream.rangeClosed(1, 10).forEach(i -> {
+	public void insertUser() {
 
-			User user = User.builder().username("USER" + i).password(new BCryptPasswordEncoder().encode("password" + i))
-					.email("user" + i + "@aaa.com").role(RoleType.USER).enable(EnableType.ENABLE).build();
+		User user = User.builder().username("User").password(new BCryptPasswordEncoder().encode("user"))
+				.email("abc@naver.com").role(RoleType.USER).enable(EnableType.ENABLE).build();
 
-			userRepository.save(user);
-		});
+		userRepository.save(user);
+
 	}
 }

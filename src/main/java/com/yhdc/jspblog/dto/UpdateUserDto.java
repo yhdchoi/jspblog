@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResetPwd {
+public class UpdateUserDto {
 
-	private String password;
-	private String newPassword;
+	private String newemail;
+	private String newpassword;
 }

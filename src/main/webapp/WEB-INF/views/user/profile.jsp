@@ -5,7 +5,7 @@
 <div class="container min-vh-100 mt-5 mb-5">
 
   <!-- Image -->
-  
+
   <form>
     <div class="form-group">
       <input type="hidden" id="id" value="${principal.user.id}" />
@@ -17,16 +17,8 @@
     <br />
 
     <div class="form-group">
-      <label for="email">Email: </label>
-      <input type="email" class="form-control" id="email" value="${principal.user.email}"
-        readonly="readonly">
-    </div>
-    <br />
-
-    <div class="form-group">
-      <label for="password">Current Password: </label>
-      <input type="password" class="form-control" id="currentpassword"
-        placeholder="Enter current password">
+      <label for="newemail">Email: </label>
+      <input type="email" class="form-control" id="newemail" placeholder="Enter new email">
     </div>
     <br />
 
@@ -47,7 +39,7 @@
   <hr />
 
   <div class="mt-2 ">
-    <a class="btn btn-outline-warning" id="btn-resetpassword">Reset Password</a>
+    <a class="btn btn-outline-warning" id="btn-update">Update</a>
     <button class="btn btn-outline-danger" id="btn-delete">Delete</button>
   </div>
 

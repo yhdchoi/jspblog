@@ -40,7 +40,7 @@ public class User {
 	@Column(length = 100, unique = true)
 	private String username;
 
-	@Column(length = 20, unique = true)
+	@Column(length = 100, unique = true)
 	private String email;
 
 	@Column(length = 100)

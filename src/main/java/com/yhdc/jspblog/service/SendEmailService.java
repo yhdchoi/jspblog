@@ -12,7 +12,9 @@ import com.yhdc.jspblog.model.User;
 import com.yhdc.jspblog.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class SendEmailService {
@@ -45,13 +47,16 @@ public class SendEmailService {
 
 		String userName = recoverPwd.getUsername();
 		String userEmail = recoverPwd.getEmail();
-
 		String tempPwd = getTempPwd();
+		log.info("userName: " + userName);
+		log.info("userEmail: " + userEmail);
+		log.info("tempPwd: " + tempPwd);
+
 		RecoverMail recoverMail = new RecoverMail();
 
-		recoverMail.setMessage(userEmail);
+		recoverMail.setEmail(userEmail);
 		recoverMail.setTitle("Hello " + userName + ". Your temporary password information.");
-		recoverMail.setMessage("Your temporary password is " + tempPwd);
+		recoverMail.setMessage("Hello " + userName + "! " + "Your temporary password is " + tempPwd);
 
 		saveTempPwd(tempPwd, userEmail);
 
@@ -62,8 +67,11 @@ public class SendEmailService {
 
 	// Save TempPassword
 	@Transactional
-	public void saveTempPwd(String tempPwd, String userEamil) {
-		User user = userRepository.findByEmail(userEamil).orElseThrow(() -> {
+	public void saveTempPwd(String tempPwd, String userEmail) {
+		log.info("SaveuserEmail: " + userEmail);
+		log.info("SavetempPwd: " + tempPwd);
+
+		User user = userRepository.findByEmail(userEmail).orElseThrow(() -> {
 			return new IllegalArgumentException("THE USER DOES NOT EXIST.");
 		});
 
@@ -72,13 +80,16 @@ public class SendEmailService {
 
 	// Send Email
 	public void sendEmail(RecoverMail recoverMail) {
+
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(recoverMail.getEmail());
 		message.setFrom(FROM_ADDRESS);
 		message.setSubject(recoverMail.getTitle());
 		message.setText(recoverMail.getMessage());
+		log.info("Email message : " + message);
 
 		mailSender.send(message);
+
 		System.out.println("Recover email sent!");
 	}
 }

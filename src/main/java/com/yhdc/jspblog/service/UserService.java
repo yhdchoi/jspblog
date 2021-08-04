@@ -9,17 +9,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yhdc.jspblog.dto.RecoverPwd;
-import com.yhdc.jspblog.dto.ResetPwd;
+import com.yhdc.jspblog.dto.UpdateUserDto;
 import com.yhdc.jspblog.model.User;
 import com.yhdc.jspblog.model.enums.EnableType;
 import com.yhdc.jspblog.model.enums.RoleType;
 import com.yhdc.jspblog.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @Service
 @RequiredArgsConstructor
-
 public class UserService {
 
 	private final UserRepository userRepository;
@@ -73,14 +74,33 @@ public class UserService {
 
 	// Reset Password
 	@Transactional
-	public Integer resetPwd(Long id, ResetPwd resetPwd) {
+	public Integer updateUserDto(Long id, UpdateUserDto updateUserDto) {
 		User user = userRepository.findById(id).orElseThrow(() -> {
 			return new IllegalArgumentException("THE USER DOES NOT EXIST.");
 		});
 
-		user.setPassword(bCryptPasswordEncoder.encode(resetPwd.getNewPassword()));
+		log.info(user);
 
-		return 1;
+		String newEmail = updateUserDto.getNewemail();
+		String newPwd = updateUserDto.getNewpassword();
+		log.info(newEmail);
+		log.info(newPwd);
+
+		if (newEmail.equals("") && !newPwd.equals("")) {
+			user.setPassword(bCryptPasswordEncoder.encode(newPwd));
+			return 1;
+		} else if (newPwd.equals("") && !newEmail.equals("")) {
+			user.setEmail(newEmail);
+			return 1;
+
+		} else if (!newEmail.equals("") && !newPwd.equals("")) {
+			user.setPassword(bCryptPasswordEncoder.encode(newPwd));
+			user.setEmail(newEmail);
+			return 1;
+
+		} else {
+			return -1;
+		}
 	}
 
 	// Check User & SendEmail
@@ -88,13 +108,14 @@ public class UserService {
 	public Integer checkUser(RecoverPwd recoverPwd) {
 
 		String email = recoverPwd.getEmail();
-
+		log.info("Email: "+email);
+		
 		userRepository.findByEmail(email).orElseThrow(() -> {
 			return new IllegalArgumentException("THE USER DOES NOT EXIST.");
 		});
 
 		int result = sendEmailService.createMail(recoverPwd);
-
+		log.info("Result: "+result);
 		return result;
 	}
 

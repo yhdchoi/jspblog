@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yhdc.jspblog.dto.RecoverPwd;
-import com.yhdc.jspblog.dto.ResetPwd;
+import com.yhdc.jspblog.dto.UpdateUserDto;
 import com.yhdc.jspblog.model.User;
 import com.yhdc.jspblog.service.UserService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @RestController
 @RequiredArgsConstructor
 public class UserApiController {
@@ -58,10 +60,10 @@ public class UserApiController {
 
 	// Reset Password
 	@PutMapping("/user/reset/{id}")
-	public ResponseEntity<Integer> resetPwd(@PathVariable Long id, @RequestBody ResetPwd resetPwd) {
+	public ResponseEntity<Integer> updateUserDto(@PathVariable Long id, @RequestBody UpdateUserDto updateUserDto) {
 
-		int result = userService.resetPwd(id, resetPwd);
-
+		int result = userService.updateUserDto(id, updateUserDto);
+		log.info("result: "+result);
 		// TODO Force session update?
 
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);
@@ -71,6 +73,7 @@ public class UserApiController {
 	@PutMapping("/auth/recover")
 	public ResponseEntity<Integer> recoverPwd(@RequestBody RecoverPwd recoverPwd) {
 
+		log.info("recoverPwd: "+recoverPwd);
 		int result = userService.checkUser(recoverPwd);
 
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);

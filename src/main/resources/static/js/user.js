@@ -4,10 +4,10 @@ let index = {
 			this.save();
 		});
 
-		$("#btn-resetpassword").on("click", () => {
-			this.resetPassword();
+		$("#btn-update").on("click", () => {
+			this.update();
 		});
-
+		
 		$("#btn-recoverpassword").on("click", () => {
 			this.recoverPassword();
 		});
@@ -52,7 +52,7 @@ let index = {
 
 	},
 
-	resetPassword: function() {
+	update: function() {
 
 		let id = $("#id").val();
 
@@ -60,7 +60,7 @@ let index = {
 		let confirmpw = $("#confirmpassword").val();
 
 		let data = {
-			password: $("#password").val(),
+			newemail: $("#newemail").val(),
 			newpassword: $("#newpassword").val()
 		};
 
@@ -94,13 +94,13 @@ let index = {
 		
 		$.ajax({
 			type: "PUT",
-			url: "/auth/recover/",
+			url: "/auth/recover",
 			data: JSON.stringify(data),
 			contentType: 'application/json; charset=utf-8',
 			dataType: 'json'
 
 		}).done(function() {
-			alert("Recover successful! Please check you email for the instruction.");
+			alert("Recover successful! Please check your email for the instruction.");
 			location.href = "/index";
 		}).fail(function(error) {
 			alert(JSON.stringify(error));
