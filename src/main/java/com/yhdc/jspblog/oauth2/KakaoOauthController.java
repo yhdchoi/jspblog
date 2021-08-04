@@ -93,9 +93,10 @@ public class KakaoOauthController {
 
 		// Add info to User DB
 		Integer tempPasswordkakaoId = kakaoProfile.getId();
+		String kakaoNickname = kakaoProfile.getKakao_account().getProfile().getNickname();		
 		String kakaoEmail = kakaoProfile.getKakao_account().getEmail();				
 
-		User kakaoUser = User.builder().username(kakaoEmail)
+		User kakaoUser = User.builder().username(kakaoNickname)
 				.email(kakaoEmail).password(tempPasswordkakaoId.toString()).oauth(OauthType.KAKAO).build();
 				
 		User originUser = userService.findUserByEmail(kakaoEmail);
