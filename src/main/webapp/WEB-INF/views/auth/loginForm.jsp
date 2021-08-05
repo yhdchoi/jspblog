@@ -20,7 +20,6 @@
     
     <a class="fs-6 fst-italic" href="/auth/password">Forgot your password?</a>
     
-
     <div class="mt-3 mb-4">
       <button class="btn btn-outline-primary btn-sm" id="btn-login">Login</button>
     </div>

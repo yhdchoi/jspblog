@@ -36,32 +36,32 @@
 
 <body>
   <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-    <a class="navbar-brand ms-3" href="/">J_Blog</a>
+    <a class="navbar-brand ms-3 text-primary" href="/">J_Blog</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse"
       data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse " id="collapsibleNavbar">
+    <div class="collapse navbar-collapse fw-bold d-flex justify-content-end" id="collapsibleNavbar">
 
       <c:choose>
         <c:when test="${ empty principal }">
-          <ul class="navbar-nav">
+          <ul class="navbar-nav ">
             <li class="nav-item">
-              <a class="nav-link" href="/auth/loginForm">Login</a>
+              <a class="nav-link text-warning fw-bold" href="/auth/loginForm">Login</a>
             </li>
           </ul>
         </c:when>
         <c:otherwise>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="/user/profile">My Profile</a>
+              <a class="nav-link text-light" href="/board/registerBoard">Compose</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/board/registerBoard">Write</a>
+              <a class="nav-link " href="/user/profile">Settings</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/logout">Logout</a>
+              <a class="nav-link text-danger" href="/logout">Logout</a>
             </li>
           </ul>
         </c:otherwise>

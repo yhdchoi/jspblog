@@ -4,6 +4,8 @@
 
 <div class="container min-vh-100 mt-5 mb-5 text-center">
 
+  <h3>Password Recovery</h3>
+  <br />
   <form>
     <div class="form-group w-50 m-auto">
       <input type="text" class="form-control mt-2 mb-3" id="username" placeholder="Enter your Username"
