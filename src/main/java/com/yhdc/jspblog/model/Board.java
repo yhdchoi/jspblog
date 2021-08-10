@@ -21,6 +21,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.yhdc.jspblog.model.enums.PrivacyType;
 
 import lombok.AllArgsConstructor;
@@ -56,13 +57,16 @@ public class Board {
 	@ManyToOne
 	@JoinColumn(name = "userId")
 	private User user;
-
 	
 	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER, 
 			cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties({"board"})
 	@OrderBy("id desc")
 	private List<Comment> comments;
+	
+	@OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+	@JsonManagedReference
+	private List<Like> likes;
 
 	@CreationTimestamp
 	private Timestamp regDate;
