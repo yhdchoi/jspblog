@@ -31,12 +31,14 @@ public class Like {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	// ID, Username, ProfileImage
 	@ManyToOne
 	@JoinColumn(name = "userId")
 	@JsonIgnoreProperties({ "password", "email", "oauth", 
 		"role", "enable", "images", "regDate", "modDate" })
 	private User user;
 
+	
 	@ManyToOne
 	@JoinColumn(name = "boardId")
 	@JsonIgnoreProperties({"title", "content", "count", "privacy", 

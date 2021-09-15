@@ -12,5 +12,13 @@ public class ImageUploadApiController {
 
 	private final ImageUploadService imageUploadService;
 	
+	// Post
+	
+	
+	// Get
+	
+	
+	// GetSearch
+	
 	
 }

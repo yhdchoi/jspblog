@@ -12,5 +12,13 @@ public class ImageUploadService {
 
 	private final ImageUploadRepository imageUploadRepository;
 	
+	// Post
 	
+	
+	// Get
+	
+	
+	// GetSearch
+			
+			
 }
