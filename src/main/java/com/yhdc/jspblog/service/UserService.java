@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yhdc.jspblog.dto.RecoverUserDto;
 import com.yhdc.jspblog.dto.UpdateUserDto;
+import com.yhdc.jspblog.exception.ApiRequestException;
 import com.yhdc.jspblog.model.User;
 import com.yhdc.jspblog.model.enums.EnableType;
 import com.yhdc.jspblog.model.enums.RoleType;
@@ -67,7 +68,7 @@ public class UserService {
 	public User detail(Long id) {
 
 		User user = userRepository.findById(id).orElseThrow(() -> {
-			return new IllegalArgumentException("THE USER DOES NOT EXIST.");
+			return new ApiRequestException("THE USER DOES NOT EXIST.");
 		});
 		return user;
 	}
@@ -76,7 +77,7 @@ public class UserService {
 	@Transactional
 	public Integer updateUserDto(Long id, UpdateUserDto updateUserDto) {
 		User user = userRepository.findById(id).orElseThrow(() -> {
-			return new IllegalArgumentException("THE USER DOES NOT EXIST.");
+			return new ApiRequestException("THE USER DOES NOT EXIST.");
 		});
 
 		log.info(user);
@@ -111,7 +112,7 @@ public class UserService {
 		log.info("Email: "+email);
 		
 		userRepository.findByEmail(email).orElseThrow(() -> {
-			return new IllegalArgumentException("THE USER DOES NOT EXIST.");
+			return new ApiRequestException("THE USER DOES NOT EXIST.");
 		});
 
 		int result = sendEmailService.createMail(recoverUserDto);
