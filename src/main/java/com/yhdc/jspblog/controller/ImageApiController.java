@@ -8,17 +8,14 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class ImageUploadApiController {
+public class ImageApiController {
 
 	private final ImageUploadService imageUploadService;
-	
-	// Post
-	
-	
-	// Get
-	
-	
-	// GetSearch
-	
-	
+
+	// TODO Post
+
+	// TODO Get
+
+	// TODO GetSearch
+
 }

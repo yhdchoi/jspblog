@@ -6,4 +6,5 @@ import com.yhdc.jspblog.model.Image;
 
 public interface ImageUploadRepository extends JpaRepository<Image, Long> {
 
+	
 }

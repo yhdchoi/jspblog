@@ -12,13 +12,14 @@ public class ImageUploadService {
 
 	private final ImageUploadRepository imageUploadRepository;
 	
-	// Post
+	//TODO Post(Update)
+	 
+	
+	//TODO Get
 	
 	
-	// Get
 	
-	
-	// GetSearch
+	//TODO Delete(insertDefaultImage)
 			
-			
+
 }
