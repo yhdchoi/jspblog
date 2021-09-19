@@ -34,35 +34,55 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	private final SendEmailService sendEmailService;
-	
+
 	@Value("${file.path")
 	private String fileRealPath;
 
 	// Join User
 	@Transactional
-	public Integer joinUser(User newUser, MultipartFile file) {	
-		
+	public Integer joinUser(User newUser, MultipartFile file) {
+		log.info("File: ", file);
+
 		try {
-			UUID uuid = UUID.randomUUID();
-			String uuidFilename = uuid + "_" + file.getOriginalFilename();
-			Path filePath = Paths.get(fileRealPath + uuidFilename);
-			Files.write(filePath, file.getBytes());
-			
+			if (file != null) {
+				UUID uuid = UUID.randomUUID();
+				String uuidFilename = uuid + "_" + file.getOriginalFilename();
+				Path filePath = Paths.get(fileRealPath + uuidFilename);
+				Files.write(filePath, file.getBytes());
+
+				newUser.setProfileImage(uuidFilename);
+			}
+
 			newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
 			newUser.setRole(RoleType.USER);
 			newUser.setEnable(EnableType.ENABLE);
-			newUser.setProfileImage(uuidFilename);
+			userRepository.save(newUser);
+			return 1;
+
+		} catch (Exception e) {
+			return -1;
+		}
+	}
+
+	// Join Kakao User
+	@Transactional
+	public Integer joinUserKakao(User newUser) {
+
+		try {
+			newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
+			newUser.setRole(RoleType.USER);
+			newUser.setEnable(EnableType.ENABLE);
 			userRepository.save(newUser);
 			return 1;
 		} catch (Exception e) {
-			e.printStackTrace();
+			return -1;
 		}
-		return -1;
 	}
 
 	// Find user
 	@Transactional(readOnly = true)
 	public User findUserByEmail(String email) {
+
 		User user = userRepository.findByEmail(email).orElseGet(() -> {
 			return new User();
 		});
@@ -93,6 +113,7 @@ public class UserService {
 	// Reset Password
 	@Transactional
 	public Integer updateUserDto(Long id, UpdateUserDto updateUserDto) {
+
 		User user = userRepository.findById(id).orElseThrow(() -> {
 			return new ApiRequestException("THE USER DOES NOT EXIST.");
 		});
@@ -126,14 +147,14 @@ public class UserService {
 	public Integer checkUser(RecoverUserDto recoverUserDto) {
 
 		String email = recoverUserDto.getEmail();
-		log.info("Email: "+email);
-		
+		log.info("Email: " + email);
+
 		userRepository.findByEmail(email).orElseThrow(() -> {
 			return new ApiRequestException("THE USER DOES NOT EXIST.");
 		});
 
 		int result = sendEmailService.createMail(recoverUserDto);
-		log.info("Result: "+result);
+		log.info("Result: " + result);
 		return result;
 	}
 

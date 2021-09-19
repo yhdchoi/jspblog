@@ -23,9 +23,7 @@ import com.yhdc.jspblog.model.User;
 import com.yhdc.jspblog.service.UserService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 
-@Log4j2
 @RestController
 @RequiredArgsConstructor
 public class UserApiController {
@@ -53,8 +51,8 @@ public class UserApiController {
 		try {
 			Page<User> users = userService.userSearchList(username, email, pageable);
 			return new ResponseEntity<Page<User>>(users, HttpStatus.OK);
-		} catch (ApiRequestException e) {
-			throw new IllegalArgumentException("User Does NOT Exist.");
+		} catch (Exception e) {
+			throw new ApiRequestException("User Does NOT Exist.");
 		}
 	}
 
@@ -65,8 +63,8 @@ public class UserApiController {
 		try {
 			User user = userService.detail(id);
 			return new ResponseEntity<User>(user, HttpStatus.OK);
-		} catch (ApiRequestException e) {
-			throw new IllegalArgumentException("User Does NOT Exist.");
+		} catch (Exception e) {
+			throw new ApiRequestException("User Does NOT Exist.");
 		}
 	}
 
@@ -76,6 +74,7 @@ public class UserApiController {
 			@RequestParam("file") MultipartFile file) {
 
 		int result = userService.updateUserDto(id, updateUserDto);
+
 		if (result == -1) {
 			return new ResponseEntity<String>("Fail To Update.", HttpStatus.BAD_REQUEST);
 		}
@@ -87,8 +86,8 @@ public class UserApiController {
 	@PutMapping("/auth/recover")
 	public ResponseEntity<String> recoverUserDto(@RequestBody RecoverUserDto recoverUserDto) {
 
-		log.info("recoverPwd: " + recoverUserDto);
 		int result = userService.checkUser(recoverUserDto);
+
 		if (result == -1) {
 			return new ResponseEntity<String>("Fail To Recover.", HttpStatus.BAD_REQUEST);
 		}
@@ -101,6 +100,7 @@ public class UserApiController {
 	public ResponseEntity<String> deleteUser(@PathVariable Long id) {
 
 		int result = userService.deleteUser(id);
+
 		if (result == -1) {
 			return new ResponseEntity<String>("Fail To Delete.", HttpStatus.BAD_REQUEST);
 		}

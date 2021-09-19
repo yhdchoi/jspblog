@@ -21,14 +21,15 @@ import com.yhdc.jspblog.model.enums.OauthType;
 import com.yhdc.jspblog.service.UserService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @Controller
 @RequiredArgsConstructor
 public class KakaoOauthController {
-	
+
 	private final UserService userService;
 //	private final AuthenticationManager authenticationManager;
-	
 
 	@GetMapping("/auth/kakao/callback")
 	public @ResponseBody String kakaoCallback(String code) {
@@ -93,23 +94,23 @@ public class KakaoOauthController {
 
 		// Add info to User DB
 		Integer tempPasswordkakaoId = kakaoProfile.getId();
-		String kakaoNickname = kakaoProfile.getKakao_account().getProfile().getNickname();		
-		String kakaoEmail = kakaoProfile.getKakao_account().getEmail();				
+		String kakaoNickname = kakaoProfile.getKakao_account().getProfile().getNickname();
+		String kakaoEmail = kakaoProfile.getKakao_account().getEmail();
+		String kakaoImage = kakaoProfile.getProperties().getProfile_image();
+		log.info("Image: ", kakaoImage);
 
-		User kakaoUser = User.builder().username(kakaoNickname)
-				.email(kakaoEmail).password(tempPasswordkakaoId.toString()).oauth(OauthType.KAKAO).build();
-				
+		User kakaoUser = User.builder().username(kakaoNickname).email(kakaoEmail)
+				.password(tempPasswordkakaoId.toString()).oauth(OauthType.KAKAO).build();
+
 		User originUser = userService.findUserByEmail(kakaoEmail);
-		
+
 		if (originUser.getUsername() == null) {
-			// Join n Login
-			userService.joinUser(kakaoUser);
-		}else {
+			userService.joinUserKakao(kakaoUser);
+		} else {
 			// Only Login (Existing User)
-//			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUser.getUsername(), kakaoUser.getPassword()));
-//			SecurityContextHolder.getContext().setAuthentication(authentication);
+			return "redirect:/auth/loginForm";
 		}
-		
+
 		return "redirect:/";
 	}
 }

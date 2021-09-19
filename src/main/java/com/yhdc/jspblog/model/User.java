@@ -56,7 +56,7 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private EnableType enable;
 		
-	private String profileImage; //Image ID
+	private String profileImage;
 	
 	@CreationTimestamp
 	private Timestamp regDate;

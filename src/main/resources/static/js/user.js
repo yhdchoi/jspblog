@@ -22,7 +22,7 @@ let index = {
 			username: $("#username").val(),
 			email: $("#email").val(),
 			password: $("#password").val(),
-			file: $("#profile_image").file()
+			file: $("#profile_image").files[0]
 		};
 
 		if (pw != confirmpw) {
