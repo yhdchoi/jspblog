@@ -9,12 +9,12 @@
   <h3>Profile Image</h3>
   <br />
 
-  <form action="/uploadImageFile" method="POST" enctype="multipart/form-data">
+  <form>
     <div class="form-group">
       <input type="hidden" id="id" value="${principal.user.id}" />
 
       <label for="username">Upload your profile image: </label>
-      <input type="file" id="input_img" placeholder="Image File">
+      <input type="file" id="image" name="image" placeholder="Image File">
     </div>
   </form>
   <br />

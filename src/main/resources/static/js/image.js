@@ -9,13 +9,13 @@ let index = {
 	save: function() {
 
 		let data = {
-			title: $("#title").val(),
-			content: $("#content").val()
+			
+			file: $("#image").files
 		};
 
 		$.ajax({
 			type: "POST",
-			url: "/api/board/register",
+			url: "/image/uploadImageFile",
 			data: JSON.stringify(data),
 			contentType: 'application/json; charset=utf-8',
 			dataType: 'json'

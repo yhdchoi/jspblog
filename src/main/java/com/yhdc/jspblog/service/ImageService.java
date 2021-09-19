@@ -13,15 +13,15 @@ import org.springframework.web.multipart.MultipartFile;
 import com.yhdc.jspblog.config.auth.PrincipalDetail;
 import com.yhdc.jspblog.model.Image;
 import com.yhdc.jspblog.model.User;
-import com.yhdc.jspblog.repository.ImageUploadRepository;
+import com.yhdc.jspblog.repository.ImageRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ImageUploadService {
+public class ImageService {
 
-	private final ImageUploadRepository imageUploadRepository;
+	private final ImageRepository imageRepository;
 
 	@Value("${file.path")
 	private String fileRealPath;
@@ -40,9 +40,12 @@ public class ImageUploadService {
 		image.setUser(principal);
 		image.setImagePath(uuidFilename);
 
-		imageUploadRepository.save(image);
+		imageRepository.save(image);
 	}
-
+	
+	// TODO Update
+	
+	
 	// TODO Get
 
 	// TODO Delete(insertDefaultImage)

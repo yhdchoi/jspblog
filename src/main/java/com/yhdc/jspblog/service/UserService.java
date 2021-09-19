@@ -1,5 +1,11 @@
 package com.yhdc.jspblog.service;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -7,6 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.yhdc.jspblog.dto.RecoverUserDto;
 import com.yhdc.jspblog.dto.UpdateUserDto;
@@ -27,14 +34,24 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	private final SendEmailService sendEmailService;
+	
+	@Value("${file.path")
+	private String fileRealPath;
 
 	// Join User
 	@Transactional
-	public Integer joinUser(User newUser) {
+	public Integer joinUser(User newUser, MultipartFile file) {	
+		
 		try {
+			UUID uuid = UUID.randomUUID();
+			String uuidFilename = uuid + "_" + file.getOriginalFilename();
+			Path filePath = Paths.get(fileRealPath + uuidFilename);
+			Files.write(filePath, file.getBytes());
+			
 			newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
 			newUser.setRole(RoleType.USER);
 			newUser.setEnable(EnableType.ENABLE);
+			newUser.setProfileImage(uuidFilename);
 			userRepository.save(newUser);
 			return 1;
 		} catch (Exception e) {

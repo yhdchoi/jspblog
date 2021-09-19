@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yhdc.jspblog.config.auth.PrincipalDetail;
-import com.yhdc.jspblog.service.ImageUploadService;
+import com.yhdc.jspblog.service.ImageService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -20,7 +20,7 @@ import lombok.extern.log4j.Log4j2;
 @RequiredArgsConstructor
 public class ImageController {
 
-	private final ImageUploadService imageUploadService;
+	private final ImageService imageService;
 
 	// Upload Page
 	@GetMapping("/image/upload")
@@ -36,7 +36,7 @@ public class ImageController {
 		log.info("Principal: ", principalDetail);
 		log.info("Image: ", file);
 
-		imageUploadService.uploadImage(principalDetail, file);
+		imageService.uploadImage(principalDetail, file);
 
 		return "redirect: /";
 	}

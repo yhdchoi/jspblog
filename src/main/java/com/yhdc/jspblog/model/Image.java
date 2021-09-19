@@ -11,9 +11,6 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,8 +33,6 @@ public class Image {
 	
 	@ManyToOne
 	@JoinColumn(name = "userId")
-	@JsonIgnoreProperties({"password"})
-	@JsonBackReference
 	private User user;
 	
 	@CreationTimestamp

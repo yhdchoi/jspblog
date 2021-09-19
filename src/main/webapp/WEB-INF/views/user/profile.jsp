@@ -9,6 +9,9 @@
   <form>
     <div class="form-group">
       <input type="hidden" id="id" value="${principal.user.id}" />
+      
+      <label for="profile_image">Profile Image: </label>
+      <input type="file" id="profile_image" name="profile_image" placeholder="Upload Your Profile Image">
 
       <label for="username">Username: </label>
       <input type="text" class="form-control" id="username" value="${principal.user.username}"

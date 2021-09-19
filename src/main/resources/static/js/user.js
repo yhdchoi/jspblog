@@ -21,14 +21,14 @@ let index = {
 		let data = {
 			username: $("#username").val(),
 			email: $("#email").val(),
-			password: $("#password").val()
+			password: $("#password").val(),
+			file: $("#profile_image").file()
 		};
 
 		if (pw != confirmpw) {
 			alert("The passwords do not match! Please try again");
 			location.href = "/auth/joinForm";
 		} else {
-
 			$.ajax({
 				type: "POST",
 				url: "/auth/joinProc",

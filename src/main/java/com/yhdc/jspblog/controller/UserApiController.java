@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.yhdc.jspblog.dto.RecoverUserDto;
 import com.yhdc.jspblog.dto.UpdateUserDto;
+import com.yhdc.jspblog.exception.ApiRequestException;
 import com.yhdc.jspblog.model.User;
 import com.yhdc.jspblog.service.UserService;
 
@@ -32,11 +34,15 @@ public class UserApiController {
 
 	// Join
 	@PostMapping("/auth/joinProc")
-	public ResponseEntity<Integer> joinUser(@RequestBody User newUser) {
+	public ResponseEntity<String> joinUser(@RequestBody User newUser, @RequestParam("file") MultipartFile file) {
 
-		int result = userService.joinUser(newUser);
+		int result = userService.joinUser(newUser, file);
 
-		return new ResponseEntity<Integer>(result, HttpStatus.OK);
+		if (result == -1) {
+			return new ResponseEntity<String>("Existing User.", HttpStatus.BAD_REQUEST);
+		}
+
+		return new ResponseEntity<String>("Successful.", HttpStatus.OK);
 	}
 
 	// Search and List User
@@ -44,48 +50,62 @@ public class UserApiController {
 	public ResponseEntity<Page<User>> userSearchList(@RequestParam String username, @RequestParam String email,
 			@PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
 
-		Page<User> users = userService.userSearchList(username, email, pageable);
-
-		return new ResponseEntity<Page<User>>(users, HttpStatus.OK);
+		try {
+			Page<User> users = userService.userSearchList(username, email, pageable);
+			return new ResponseEntity<Page<User>>(users, HttpStatus.OK);
+		} catch (ApiRequestException e) {
+			throw new IllegalArgumentException("User Does NOT Exist.");
+		}
 	}
 
 	// Detail
 	@GetMapping("/user/detail/{id}")
 	public ResponseEntity<User> detail(@PathVariable Long id) {
 
-		User user = userService.detail(id);
-
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+		try {
+			User user = userService.detail(id);
+			return new ResponseEntity<User>(user, HttpStatus.OK);
+		} catch (ApiRequestException e) {
+			throw new IllegalArgumentException("User Does NOT Exist.");
+		}
 	}
 
 	// Reset Password
 	@PutMapping("/user/reset/{id}")
-	public ResponseEntity<Integer> updateUserDto(@PathVariable Long id, @RequestBody UpdateUserDto updateUserDto) {
+	public ResponseEntity<String> updateUserDto(@PathVariable Long id, @RequestBody UpdateUserDto updateUserDto,
+			@RequestParam("file") MultipartFile file) {
 
 		int result = userService.updateUserDto(id, updateUserDto);
-		log.info("result: "+result);
-		// TODO Force session update?
+		if (result == -1) {
+			return new ResponseEntity<String>("Fail To Update.", HttpStatus.BAD_REQUEST);
+		}
 
-		return new ResponseEntity<Integer>(result, HttpStatus.OK);
+		return new ResponseEntity<String>("Successful.", HttpStatus.OK);
 	}
 
 	// Recover Password
 	@PutMapping("/auth/recover")
-	public ResponseEntity<Integer> recoverUserDto(@RequestBody RecoverUserDto recoverUserDto) {
+	public ResponseEntity<String> recoverUserDto(@RequestBody RecoverUserDto recoverUserDto) {
 
-		log.info("recoverPwd: "+recoverUserDto);
+		log.info("recoverPwd: " + recoverUserDto);
 		int result = userService.checkUser(recoverUserDto);
+		if (result == -1) {
+			return new ResponseEntity<String>("Fail To Recover.", HttpStatus.BAD_REQUEST);
+		}
 
-		return new ResponseEntity<Integer>(result, HttpStatus.OK);
+		return new ResponseEntity<String>("Successful.", HttpStatus.OK);
 	}
 
 	// Delete User
 	@DeleteMapping("/user/remove/{id}")
-	public ResponseEntity<Integer> deleteUser(@PathVariable Long id) {
+	public ResponseEntity<String> deleteUser(@PathVariable Long id) {
 
 		int result = userService.deleteUser(id);
+		if (result == -1) {
+			return new ResponseEntity<String>("Fail To Delete.", HttpStatus.BAD_REQUEST);
+		}
 
-		return new ResponseEntity<Integer>(result, HttpStatus.OK);
+		return new ResponseEntity<String>("Successful.", HttpStatus.OK);
 	}
 
 }
