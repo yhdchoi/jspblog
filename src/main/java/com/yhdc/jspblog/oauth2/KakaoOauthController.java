@@ -103,7 +103,7 @@ public class KakaoOauthController {
 		
 		if (originUser.getUsername() == null) {
 			// Join n Login
-			userService.joinUser(kakaoUser);			
+			userService.joinUser(kakaoUser);
 		}else {
 			// Only Login (Existing User)
 //			Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUser.getUsername(), kakaoUser.getPassword()));

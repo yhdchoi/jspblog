@@ -9,15 +9,13 @@
   <h3>Profile Image</h3>
   <br />
 
-  <form>
+  <form action="/uploadImageFile" method="POST" enctype="multipart/form-data">
     <div class="form-group">
       <input type="hidden" id="id" value="${principal.user.id}" />
 
-      <label for="username">Username: </label>
-      <input type="text" class="form-control" id="username" value="${principal.user.username}">
+      <label for="username">Upload your profile image: </label>
+      <input type="file" id="input_img" placeholder="Image File">
     </div>
-
-
   </form>
   <br />
 
@@ -29,6 +27,6 @@
 
 </div>
 
-<script src="/js/user.js"></script>
+<script src="/js/image.js"></script>
 
 <%@include file="../layout/footer.jsp"%>
