@@ -23,13 +23,13 @@ public class ImageController {
 	private final ImageService imageService;
 
 	// Upload Page
-	@GetMapping("/image/upload")
-	public String uploadImage() {
-		return "image/upload_image";
+	@GetMapping("/image/profileimage")
+	public String uploadImage(@AuthenticationPrincipal PrincipalDetail principal) {
+		return "image/profileimage";
 	}
 
 	// Post Image
-	@PostMapping("/image/uploadImageFile")
+	@PostMapping("/image/post")
 	public String uploadImageFile(@AuthenticationPrincipal PrincipalDetail principalDetail,
 			@RequestParam("file") MultipartFile file) throws IOException {
 
@@ -42,5 +42,10 @@ public class ImageController {
 	}
 
 	// TODO Get
-
+	@GetMapping("/image/get")
+	public String getImage(@AuthenticationPrincipal PrincipalDetail principalDetail,
+			@RequestParam("file") MultipartFile file) throws IOException {
+		
+		return "redirect: /";
+	}
 }

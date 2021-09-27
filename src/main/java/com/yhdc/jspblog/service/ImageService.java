@@ -23,7 +23,7 @@ public class ImageService {
 
 	private final ImageRepository imageRepository;
 
-	@Value("${file.path")
+	@Value("${file.path}")
 	private String fileRealPath;
 
 	// Post
@@ -41,12 +41,11 @@ public class ImageService {
 		image.setImagePath(uuidFilename);
 
 		imageRepository.save(image);
-	}
-	
-	// TODO Update
-	
+	}	
 	
 	// TODO Get
+	
+	// TODO Update	
 
 	// TODO Delete(insertDefaultImage)
 
