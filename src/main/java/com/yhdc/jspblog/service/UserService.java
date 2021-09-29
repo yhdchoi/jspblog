@@ -35,7 +35,7 @@ public class UserService {
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	private final SendEmailService sendEmailService;
 
-	@Value("${file.path")
+	@Value("${file.path}")
 	private String fileRealPath;
 
 	// Join User
